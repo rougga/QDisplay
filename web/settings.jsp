@@ -8,14 +8,14 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>Settings - <%= CfgHandler.APP%></title>
+        <title>Settings - <%= CfgHandler.APP %></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/png" href="/<%= CfgHandler.APP%>/img/favicon-32x32.png">
-        <script src="/<%= CfgHandler.APP%>/js/jquery.js"></script>
-        <link href="/<%= CfgHandler.APP%>/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <script src="/<%= CfgHandler.APP%>/js/bootstrap.bundle.min.js"></script>
-        <script src="/<%= CfgHandler.APP%>/js/settings.js"></script>
-        <script src="/<%= CfgHandler.APP%>/js/setting/agence.js"></script>
+        <link rel="icon" type="image/png" href="./img/favicon-32x32.png">
+        <script src="./js/jquery.js"></script>
+        <link href="./css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="./js/bootstrap.bundle.min.js"></script>
+        <script src="./js/settings.js"></script>
+        <script src="./js/setting/agence.js"></script>
     </head>
     <body>
         <div class="container-fluid bg-dark vh-100">
@@ -25,20 +25,19 @@
                 <h3 class="text-white text-center w-100">Agences</h3>
             </div>
             <div class="container">
-
                 <nav>
                     <ul class="nav nav-tabs justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/<%= CfgHandler.APP%>/setting/agences.jsp">Agences</a>
+                            <a class="nav-link active" href="#">Agences</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/affichage.jsp">Affichage</a>
+                            <a class="nav-link" href="#">Affichage</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/maj.jsp">M.A.J</a>
+                            <a class="nav-link" href="#">M.A.J</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="/<%= CfgHandler.APP%>/">Aller à l'ecran</a>
+                            <a class="nav-link disabled" href="#">Disabled</a>
                         </li>
                     </ul>
                 </nav>

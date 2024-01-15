@@ -146,7 +146,8 @@ public class TicketController {
     }
 
     public void updateAllTickets() {
-        List<Agence> agences = new AgenceController().getAllAgence();
+        AgenceController ac = new AgenceController();
+        List<Agence> agences = ac.getAllAgence();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (agences != null) {
             System.out.println("-- Updating t_ticket (All)....");
@@ -181,6 +182,7 @@ public class TicketController {
                                 )
                         );
                     }
+                    ac.setLastUpdate(agences.get(i).getId());
                     con.closeConnection();
 
                 } catch (Exception ex) {

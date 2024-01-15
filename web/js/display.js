@@ -309,19 +309,21 @@ $(document).ready(function () {
         $("#footerText").html(localStorage.getItem('text'));
     };
     var openSettingModal = function () {
-        var obj = localStorage.getItem('location');
-        var obj2 = localStorage.getItem('size');
-        var obj3 = localStorage.getItem('margin');
-        $('#staticBackdrop').modal({});
-        $("#ville").val(obj);
-        $("#size").val(obj2);
-        $('#sizeInfo').html($("#size").val());
-        document.getElementById('margin').checked = (obj3 === 'true');
-        $("#text").val(localStorage.getItem('text'));
-        $('#staticBackdrop').modal('toggle');
+//        var obj = localStorage.getItem('location');
+//        var obj2 = localStorage.getItem('size');
+//        var obj3 = localStorage.getItem('margin');
+//        $('#staticBackdrop').modal({});
+//        $("#ville").val(obj);
+//        $("#size").val(obj2);
+//        $('#sizeInfo').html($("#size").val());
+//        document.getElementById('margin').checked = (obj3 === 'true');
+//        $("#text").val(localStorage.getItem('text'));
+//        $('#staticBackdrop').modal('toggle');
+window.localStorage = "/QDisplay/setting/affichage.jsp";
     };
+    
     $("#setting").on('click', function () {
-        openSettingModal();
+       // openSettingModal();
     });
     $("#size").on('change', function () {
         $('#sizeInfo').html($("#size").val());

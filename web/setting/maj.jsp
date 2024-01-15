@@ -1,3 +1,4 @@
+<%@page import="main.CfgHandler"%>
 <%@page import="main.modal.Agence"%>
 <%@page import="java.util.List"%>
 <%@page import="main.controller.AgenceController"%>
@@ -17,58 +18,72 @@
         <script src="../js/settings.js"></script>
     </head>
     <body>
-        <div class="container-lg">
-            <div class="head">
-                <%@include file="../addon/navbar.jsp" %>
-                <script>
-                    $("#home").removeClass("active");
-                </script>
+        <div class="container-fluid">
+            <div class="p-3">
+                <h1 class="text-white text-center w-100">Paramertres:</h1>
+                <h3 class="text-white text-center w-100">Mise à jour</h3>
             </div>
-            <div class="mt-4 pt-4">
-                <%                     
-                    String err=request.getParameter("err");
-                    if (err != "" && err != null) {
+            <div class="container">
 
-                %>
-                <%= "<div class='alert alert-danger alert-dismissible fade show' role='alert'><b>"
-                        + err
-                        + "</b><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>"%>
-                <%
-                    }
-                %>
+                <nav>
+                    <ul class="nav nav-tabs justify-content-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/agences.jsp">Agences</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/affichage.jsp">Affichage</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/<%= CfgHandler.APP%>/setting/maj.jsp">M.A.J</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/<%= CfgHandler.APP%>/">Aller à l'ecran</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="mt-4 pt-4">
+                    <%
+                        String err = request.getParameter("err");
+                        if (err != "" && err != null) {
 
-                <div class="w-100" id="dbTbl">
-                    <h1 class="text-white text-center">
-                        Mise a jour globale :
-                    </h1>
+                    %>
+                    <%= "<div class='alert alert-danger alert-dismissible fade show' role='alert'><b>"
+                            + err
+                            + "</b><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>"%>
+                    <%
+                        }
+                    %>
 
-                    <div class="w-50 mx-auto ">
-                        <form action="" class="d-flex justify-content-center flex-column">
-                            <a class="btn btn-secondary m-1" id="majNowBtn"><img src="/QData/img/icon/maj.png"> Mise à jour (aujourd'hui) maintenant</a>
-                            <a class="btn btn-secondary m-1" id="majTBtn" ><img src="/QData/img/icon/maj.png"> Mise à jour tous les tickets</a>
-                            <a class="btn btn-secondary m-1" id="majLBtn"><img src="/QData/img/icon/maj.png"> Mise à jour tout le journal de connexion</a>
-                        </form>
+                    <div class="w-100" id="dbTbl">
+                        <div class="w-50 mx-auto ">
+                            <form action="" class="d-flex justify-content-center flex-column">
+                                <a class="btn btn-secondary m-1" id="majNowBtn"><img src="/<%= CfgHandler.APP%>/img/icon/maj.png"> Mise à jour (aujourd'hui)</a>
+                                <a class="btn btn-secondary m-1" id="majTBtn" ><img src="/<%= CfgHandler.APP%>/img/icon/maj.png"> Mise à jour tous les tickets</a>
+                                <a class="btn btn-secondary m-1" id="majLBtn"><img src="/<%= CfgHandler.APP%>/img/icon/maj.png"> Mise à jour tout le journal de connexion</a>
+                            </form>
+                        </div>
                     </div>
                 </div>
+                <div class="footer">
+                    <script>
+                        $(document).ready(function () {
+                            $("#majTBtn").on('click', function () {
+                                $("form").attr("action", "/<%= CfgHandler.APP%>/api/updatealltickets");
+                                $("form").submit();
+                            });
+                            $("#majLBtn").on('click', function () {
+                                $("form").attr("action", "/<%= CfgHandler.APP%>/api/updateallloginlog");
+                                $("form").submit();
+                            });
+                            $("#majNowBtn").on('click', function () {
+                                $("form").attr("action", "/<%= CfgHandler.APP%>/api/updatenow");
+                                $("form").submit();
+                            });
+                        });
+
+                    </script>
+                </div>
             </div>
-            <div class="footer">
-                <script>
-                    $(document).ready(function() {
-                        $("#majTBtn").on('click',function() {
-                            $("form").attr("action","/QData/api/updatealltickets");
-                            $("form").submit();
-                        });
-                        $("#majLBtn").on('click',function() {
-                            $("form").attr("action","/QData/api/updateallloginlog");
-                            $("form").submit();
-                        });
-                        $("#majNowBtn").on('click',function() {
-                            $("form").attr("action","/QData/api/updatenow");
-                            $("form").submit();
-                        });
-                    });
-                    
-                </script>
-            </div>
+        </div>
     </body>
 </html>
