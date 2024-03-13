@@ -156,7 +156,7 @@ $(document).ready(function () {
                                 + "<th scope='col'>Nb. E</th>"
                                 + "<th scope='col'>Nb. T</th>"
                                 + "<th scope='col'>Nb. A</th>"
-                                + "<th scope='col'>>C</th>"
+                             //   + "<th scope='col'>>C</th>"
                                 + "</tr>"
                                 + "</thead>"
                                 + "<tbody>"
@@ -171,7 +171,7 @@ $(document).ready(function () {
                                             + "<td>" + data.result[i].table[j].data[0] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[1] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[2] + "</td>"
-                                            + "<td>" + data.result[i].table[j].data[9] + "</td>"
+                                          //  + "<td>" + data.result[i].table[j].data[9] + "</td>"
                                             + "</tr>";
                                     main += row;
                                 } else {
@@ -180,7 +180,7 @@ $(document).ready(function () {
                                             + "<td>" + data.result[i].table[j].data[0] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[1] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[2] + "</td>"
-                                            + "<td>" + data.result[i].table[j].data[9] + "</td>"
+                                          //  + "<td>" + data.result[i].table[j].data[9] + "</td>"
                                             + "</tr>";
                                     main += row;
                                 }
@@ -193,7 +193,7 @@ $(document).ready(function () {
                                     + "<td>--</td>"
                                     + "<td>--</td>"
                                     + "<td>--</td>"
-                                    + "<td>--</td>"
+                                  //      + "<td>--</td>"
                                     + "</tr>";
                             main += row;
                         }
