@@ -13,25 +13,26 @@
         <link rel="icon" type="image/png" href="/<%= CfgHandler.APP%>/img/favicon-32x32.png">
         <script src="/<%= CfgHandler.APP%>/js/jquery.js"></script>
         <link href="/<%= CfgHandler.APP%>/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/<%= CfgHandler.APP%>/css/default.css" rel="stylesheet" type="text/css"/>
         <script src="/<%= CfgHandler.APP%>/js/bootstrap.bundle.min.js"></script>
         <script src="/<%= CfgHandler.APP%>/js/settings.js"></script>
         <script src="/<%= CfgHandler.APP%>/js/setting/affichage.js"></script>
     </head>
     <body>
-        <div class="container-fluid bg-dark vh-100">
+        <div class="container-fluid bg-black vh-100">
 
             <div class="p-3">
                 <h1 class="text-white text-center w-100">Paramertres:</h1>
                 <h3 class="text-white text-center w-100">Affichage</h3>
             </div>
-            <div class="container">
+            <div class="container font-weight-bold text-eco">
                 <nav>
                     <ul class="nav nav-tabs justify-content-center">
                         <li class="nav-item">
                             <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/agences.jsp">Agences</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/<%= CfgHandler.APP%>/setting/affichage.jsp">Affichage</a>
+                            <a class="nav-link active font-weight-bold" href="/<%= CfgHandler.APP%>/setting/affichage.jsp">Affichage</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/maj.jsp">M.A.J</a>
@@ -41,7 +42,7 @@
                         </li>
                     </ul>
                 </nav>
-                <div class=" bg-white">
+                <div class="  bg-dark">
                     <form>
                         <div class="modal-body">
                             <div class="form-group">

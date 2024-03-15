@@ -12,13 +12,12 @@
         <link rel="icon" type="image/png" href="../img/favicon-32x32.png">
         <script src="../js/jquery.js"></script>
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/<%= CfgHandler.APP%>/css/default.css" rel="stylesheet" type="text/css"/>
         <script src="../js/bootstrap.bundle.min.js"></script>
-        <link href="../css/navbar.css" rel="stylesheet" type="text/css"/> 
-        <link href="../css/body.css" rel="stylesheet" type="text/css"/>
         <script src="../js/settings.js"></script>
     </head>
-    <body>
-        <div class="container-fluid">
+    <body class="">
+        <div class="container-fluid bg-black vh-100">
             <div class="p-3">
                 <h1 class="text-white text-center w-100">Paramertres:</h1>
                 <h3 class="text-white text-center w-100">Mise à jour</h3>
@@ -34,7 +33,7 @@
                             <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/affichage.jsp">Affichage</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/<%= CfgHandler.APP%>/setting/maj.jsp">M.A.J</a>
+                            <a class="nav-link active  font-weight-bold" href="/<%= CfgHandler.APP%>/setting/maj.jsp">M.A.J</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " href="/<%= CfgHandler.APP%>/">Aller à l'ecran</a>

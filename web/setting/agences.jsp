@@ -13,12 +13,13 @@
         <link rel="icon" type="image/png" href="/<%= CfgHandler.APP%>/img/favicon-32x32.png">
         <script src="/<%= CfgHandler.APP%>/js/jquery.js"></script>
         <link href="/<%= CfgHandler.APP%>/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/<%= CfgHandler.APP%>/css/default.css" rel="stylesheet" type="text/css"/>
         <script src="/<%= CfgHandler.APP%>/js/bootstrap.bundle.min.js"></script>
         <script src="/<%= CfgHandler.APP%>/js/settings.js"></script>
         <script src="/<%= CfgHandler.APP%>/js/setting/agence.js"></script>
     </head>
     <body>
-        <div class="container-fluid bg-dark vh-100">
+        <div class="container-fluid bg-black vh-100">
 
             <div class="p-3">
                 <h1 class="text-white text-center w-100">Paramertres:</h1>
@@ -29,7 +30,7 @@
                 <nav>
                     <ul class="nav nav-tabs justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/<%= CfgHandler.APP%>/setting/agences.jsp">Agences</a>
+                            <a class="nav-link active font-weight-bold" href="/<%= CfgHandler.APP%>/setting/agences.jsp">Agences</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/affichage.jsp">Affichage</a>
