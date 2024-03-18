@@ -21,8 +21,8 @@ public class Listener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-//        executor = Executors.newScheduledThreadPool(2);
-//        executor.scheduleAtFixedRate(myRunnable, 0, 5, TimeUnit.MINUTES);
+      executor = Executors.newScheduledThreadPool(2);
+      executor.scheduleAtFixedRate(myRunnable, 0, 3, TimeUnit.MINUTES);
     }
 
     @Override

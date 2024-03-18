@@ -35,7 +35,7 @@ public class CfgHandler {
     private final String extraFile = "\\cfg\\db\\extra.xml";
     private final String dbFile = "\\cfg\\db\\db.xml";
     private final String titleFile = "\\cfg\\db\\title.xml";
-    
+    private final String displayfile = "\\cfg\\db\\display.xml";
     //Excel
     private final String tempxls = "\\cfg\\excel\\temp.xls";
     private final String gblTempExcel = "\\cfg\\excel\\gbltemp.xlsx";
@@ -49,9 +49,9 @@ public class CfgHandler {
     
     //Pages
 
-    public static String PAGE_HOME = "/QData/home.jsp";
-    public static String PAGE_REPORT = "/QData/report.jsp";
-    public static String PAGE_TASK = "/QData/setting/taches.jsp";
+    public static String PAGE_HOME = "/QDisplay/home.jsp";
+    public static String PAGE_REPORT = "/QDisplay/report.jsp";
+    public static String PAGE_TASK = "/QDisplay/setting/taches.jsp";
     
     //Pars
     private Properties prop = null;

@@ -19,7 +19,7 @@
         <script src="/<%= CfgHandler.APP%>/js/setting/agence.js"></script>
     </head>
     <body>
-        <div class="container-fluid bg-black vh-100">
+        <div class="container-fluid bg-black vh-full">
 
             <div class="p-3">
                 <h1 class="text-white text-center w-100">Paramertres:</h1>
@@ -33,7 +33,7 @@
                             <a class="nav-link active font-weight-bold" href="/<%= CfgHandler.APP%>/setting/agences.jsp">Agences</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/affichage.jsp">Affichage</a>
+                            <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/affichage.jsp">Générale</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/maj.jsp">M.A.J</a>

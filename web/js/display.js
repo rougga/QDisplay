@@ -138,7 +138,8 @@ $(document).ready(function () {
         var obj3 = localStorage.getItem('margin');
         if (obj2 == undefined || obj3 == undefined) {
             alert("la taille des éléments n'est pas sélectionnée...");
-            openSettingModal();
+            obj2 = "30";
+            obj3 = "0";
         } else {
             $.getJSON("./api/gettables", function (data) {
                 $("#main").html("");
@@ -148,15 +149,16 @@ $(document).ready(function () {
                     if (data.result[i].table.length > 0) {
                         var site = data.result[i].site;
                         var main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm full' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
-                                + "<table class='table text-white table-sm table-borderless table-resp'>"
+                                + "<table class='table text-white table-sm table-borderless table-resp table-element'>"
                                 + "<thead>"
                                 + "<tr>"
-                                + "<th scope='col'></th>"
-                                + "<th scope='col'></th>"
-                                + "<th scope='col'>Nb. E</th>"
+                                + "<th scope='col'>Site</th>"
+                                + "<th scope='col'>Service</th>"
+                                + "<th scope='col'>Nb. É</th>"
                                 + "<th scope='col'>Nb. T</th>"
                                 + "<th scope='col'>Nb. A</th>"
-                             //   + "<th scope='col'>>C</th>"
+                                + "<th scope='col'>>Mo. Att</th>"
+                                + "<th scope='col'>>Mo. Trai</th>"
                                 + "</tr>"
                                 + "</thead>"
                                 + "<tbody>"
@@ -171,7 +173,8 @@ $(document).ready(function () {
                                             + "<td>" + data.result[i].table[j].data[0] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[1] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[2] + "</td>"
-                                          //  + "<td>" + data.result[i].table[j].data[9] + "</td>"
+                                            + "<td>" + data.result[i].table[j].data[8] + "</td>"
+                                            + "<td>" + data.result[i].table[j].data[11] + "</td>"
                                             + "</tr>";
                                     main += row;
                                 } else {
@@ -180,7 +183,8 @@ $(document).ready(function () {
                                             + "<td>" + data.result[i].table[j].data[0] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[1] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[2] + "</td>"
-                                          //  + "<td>" + data.result[i].table[j].data[9] + "</td>"
+                                            + "<td>" + data.result[i].table[j].data[8] + "</td>"
+                                            + "<td>" + data.result[i].table[j].data[11] + "</td>"
                                             + "</tr>";
                                     main += row;
                                 }
@@ -193,7 +197,8 @@ $(document).ready(function () {
                                     + "<td>--</td>"
                                     + "<td>--</td>"
                                     + "<td>--</td>"
-                                  //      + "<td>--</td>"
+                                    + "<td>--</td>"
+                                    + "<td>--</td>"
                                     + "</tr>";
                             main += row;
                         }
@@ -213,15 +218,16 @@ $(document).ready(function () {
                     if (data.result[i].table.length <= 0) {
                         var site = data.result[i].site;
                         var main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
-                                + "<table class='table text-white table-sm table-borderless table-resp'>"
+                                + "<table class='table text-white table-sm table-borderless table-resp table-element'>"
                                 + "<thead>"
                                 + "<tr>"
-                                + "<th scope='col'></th>"
-                                + "<th scope='col'></th>"
-                                + "<th scope='col'>Nb. E</th>"
+                                + "<th scope='col'>Site</th>"
+                                + "<th scope='col'>Service</th>"
+                                + "<th scope='col'>Nb. É</th>"
                                 + "<th scope='col'>Nb. T</th>"
                                 + "<th scope='col'>Nb. A</th>"
-                                + "<th scope='col'>>C</th>"
+                                + "<th scope='col'>Mo. Att</th>"
+                                + "<th scope='col'>Mo. Trai</th>"
                                 + "</tr>"
                                 + "</thead>"
                                 + "<tbody>"
@@ -236,7 +242,8 @@ $(document).ready(function () {
                                             + "<td>" + data.result[i].table[j].data[0] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[1] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[2] + "</td>"
-                                            + "<td>" + data.result[i].table[j].data[9] + "</td>"
+                                            + "<td>" + data.result[i].table[j].data[8] + "</td>"
+                                            + "<td>" + data.result[i].table[j].data[11] + "</td>"
                                             + "</tr>";
                                     main += row;
                                 } else {
@@ -245,7 +252,8 @@ $(document).ready(function () {
                                             + "<td>" + data.result[i].table[j].data[0] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[1] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[2] + "</td>"
-                                            + "<td>" + data.result[i].table[j].data[9] + "</td>"
+                                            + "<td>" + data.result[i].table[j].data[8] + "</td>"
+                                            + "<td>" + data.result[i].table[j].data[11] + "</td>"
                                             + "</tr>";
                                     main += row;
                                 }
@@ -254,6 +262,7 @@ $(document).ready(function () {
                         } else {
                             var row = "<tr>"
                                     + "<th scope='row' class='text-center align-middle'>" + getOnlineIcon(isOnline) + site + "</th>"
+                                    + "<td>--</td>"
                                     + "<td>--</td>"
                                     + "<td>--</td>"
                                     + "<td>--</td>"
@@ -278,7 +287,7 @@ $(document).ready(function () {
                 } else {
                     $(".site").addClass("col-md-6");
                 }
-                if($(".full").length < 2) {
+                if ($(".full").length < 2) {
                     $(".full").removeClass("col-md-6");
                 }
                 if ((obj3 === 'true')) {
@@ -295,7 +304,7 @@ $(document).ready(function () {
                 $("#main").css("font-size", obj2 + "px");
                 $(".site table td").addClass("p-0");
                 console.log("Table updated !!");
-
+                updateTheme();
             }
             );
         }
@@ -308,62 +317,40 @@ $(document).ready(function () {
     var updateTicker = function () {
         $("#footerText").html(localStorage.getItem('text'));
     };
-    var openSettingModal = function () {
-//        var obj = localStorage.getItem('location');
-//        var obj2 = localStorage.getItem('size');
-//        var obj3 = localStorage.getItem('margin');
-//        $('#staticBackdrop').modal({});
-//        $("#ville").val(obj);
-//        $("#size").val(obj2);
-//        $('#sizeInfo').html($("#size").val());
-//        document.getElementById('margin').checked = (obj3 === 'true');
-//        $("#text").val(localStorage.getItem('text'));
-//        $('#staticBackdrop').modal('toggle');
-window.localStorage = "/QDisplay/setting/affichage.jsp";
-    };
-    
-    $("#setting").on('click', function () {
-       // openSettingModal();
-    });
-    $("#size").on('change', function () {
-        $('#sizeInfo').html($("#size").val());
-        $("#main").css("font-size", $("#size").val() + "px");
-    });
-    $("#margin").on('change', function () {
-        //$("#main td").toggleClass("p-0");
-    });
-    $("#save").on('click', function () {
-        var ville = $("#ville").val();
-        var size = $("#size").val();
-        var text = $("#text").val();
-        if (ville !== null) {
-            localStorage.setItem('location', ville);
-            localStorage.setItem('size', size);
-            localStorage.setItem('margin', document.getElementById('margin').checked);
-            localStorage.setItem('text', text);
-            getWeather();
-            updateTables();
-            updateTicker();
-            $('#staticBackdrop').modal('toggle');
-            console.log(document.getElementById('margin').checked);
-            console.log(text);
-        }
 
-    });
+    var updateTheme = function () {
+        let mode = localStorage.getItem('mode');
+
+        switch (mode) {
+            case 'eco':
+                $("body").addClass("bg-black");
+                $(".table-element tbody tr th").addClass("text-center align-middle ");
+                console.log("Theme updated !!");
+                break;
+
+            case 'normal':
+                $("body").addClass("bg-dark");
+                $(".table-element").addClass("table-bordered table-striped table-light");
+                $(".table-element thead").addClass("bg-info text-center align-middle");
+                $(".table-element thead").removeClass("table-borderless");
+                $(".table-element tbody tr").addClass("border-dark text-left  text-dark");
+                $(".table-element tbody tr th").addClass("border-dark text-center align-middle text-dark");
+                console.log("Theme updated !!");
+                break;
+            default:
+
+        }
+    };
+
 
     getWeather();
     updateTables();
     updateTicker();
+    updateTheme();
     setInterval(function () {
         getWeather();
         updateTables();
         updateTicker();
-    }, 60000);
-//    localStorage.setItem('gameStorage', "Rabat,Morocco");
-//    var obj = localStorage.getItem('gameStorage');
-//    if (obj == undefined) {
-//        alert("empty");
-//    } else {
-//        alert(obj);
-//    }
+        updateTheme();
+    }, 30000);
 });

@@ -19,11 +19,11 @@
         <script src="/<%= CfgHandler.APP%>/js/setting/affichage.js"></script>
     </head>
     <body>
-        <div class="container-fluid bg-black vh-100">
+        <div class="container-fluid bg-black vh-full">
 
             <div class="p-3">
                 <h1 class="text-white text-center w-100">Paramertres:</h1>
-                <h3 class="text-white text-center w-100">Affichage</h3>
+                <h3 class="text-white text-center w-100">Générale</h3>
             </div>
             <div class="container font-weight-bold text-eco">
                 <nav>
@@ -32,7 +32,7 @@
                             <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/agences.jsp">Agences</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active font-weight-bold" href="/<%= CfgHandler.APP%>/setting/affichage.jsp">Affichage</a>
+                            <a class="nav-link active font-weight-bold" href="/<%= CfgHandler.APP%>/setting/affichage.jsp">Générale</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/maj.jsp">M.A.J</a>
@@ -42,9 +42,23 @@
                         </li>
                     </ul>
                 </nav>
-                <div class="  bg-dark">
+                <div class="bg-dark">
                     <form>
                         <div class="modal-body">
+                            <div class="form-group">
+                                <label class="mr-4">Theme:</label>
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="theme" id="option1" autocomplete="off" value="eco" > 
+                                        <img src="../img/icon/battery-16.png" alt=""/>
+                                        Économique
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="theme" id="option2" autocomplete="off" value="normal"> 
+                                        Normale
+                                    </label>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="ville">Ville:</label>
                                 <select class="form-control" id="ville">
@@ -75,18 +89,26 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="size">Tailles d'articles: <span id="sizeInfo">0</span></label>
+                                <label for="size">Tailles d'element: <span id="sizeInfo">0</span> Pixel</label>
                                 <input type="range" class="form-control-range" id="size" min="1" max="100">
                             </div>
                             <div class="form-check my-3 mx-1">
-                                <input class="form-check-input " type="checkbox" id="margin" value="">
-                                <label class="form-check-label" for="margin">
-                                    La marge.
+                                <input class="form-check-input " style="height:  20px;width: 20px;" type="checkbox" id="margin" value="">
+                                <label class="form-check-label ml-3" for="margin">
+                                    La marge?
                                 </label>
                             </div>
                             <div class="form-group">
                                 <label for="text">Text roulant:</label>
                                 <textarea class="form-control"  rows="3" id="text"></textarea>
+                            </div>
+                            <div class="form-check" >
+                                <input type="checkbox" class="form-check-input " id="hideEmpty" style="height:  20px;width: 20px;">
+                                <label for="hideEmpty" class="form-check-label ml-3">Masquer les tables vides? </label>
+                            </div>
+                            <div class="form-group mt-4">
+                                <label for="refreshTime">Temps de rafraîchissement:</label>
+                                <input type="number" class="form-control" id="refreshTime" min="0" max="300">
                             </div>
                         </div>
                         <div class="modal-footer">

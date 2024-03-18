@@ -1,7 +1,16 @@
 .bg-black{
     background-color: black;
-    
+}
+.bg-normal{
+    background-color: #F9F871;
 }
 .text-eco{
     color: white;
+}
+ label.active{
+     background-color: #007bff !important;
+    font-weight: bold; 
+}
+.vh-full{
+    min-height: 100vh;
 }
