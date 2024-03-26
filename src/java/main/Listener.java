@@ -13,7 +13,7 @@ public class Listener implements ServletContextListener {
     final Runnable myRunnable = new Runnable() {
         @Override
         public void run() {
-            System.out.println("-- OffReport Data Update Starting.....");
+            System.out.println("-- QDisplay Data Update Starting.....");
             new Updater().updateDatabase();
             System.out.println("-- Last Updated: " + new Date().toString());
         }
@@ -22,7 +22,7 @@ public class Listener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
       executor = Executors.newScheduledThreadPool(2);
-      executor.scheduleAtFixedRate(myRunnable, 0, 3, TimeUnit.MINUTES);
+    //  executor.scheduleAtFixedRate(myRunnable, 0, 3, TimeUnit.MINUTES);
     }
 
     @Override

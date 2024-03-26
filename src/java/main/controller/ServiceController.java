@@ -3,7 +3,9 @@ package main.controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -185,7 +187,33 @@ public class ServiceController {
                 Logger.getLogger(ServiceController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getMessage());
             }
 
-            System.err.println("-- t_biz_type for "+a.getName()+" updated.");
+            System.err.println("-- t_biz_type for " + a.getName() + " updated.");
+        }
+    }
+
+    public int getTodayWaitingTicketsByService(String serviceId, UUID db_id) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            PgConnection con = new PgConnection();
+            String SQL = "Select count(*) from t_ticket where to_date(to_char(ticket_time,'YYYY-MM-DD'),'YYYY-MM-DD')  BETWEEN TO_DATE(?,'YYYY-MM-DD') AND TO_DATE(?,'YYYY-MM-DD') and status=0 and db_id=? and biz_type_id=? ;";
+            PreparedStatement s = con.getStatement().getConnection().prepareStatement(SQL);
+            s.setString(1, format.format(new Date()));
+            s.setString(2, format.format(new Date()));
+            s.setString(3, db_id.toString());
+            s.setString(4, serviceId);
+            ResultSet r = s.executeQuery();
+            con.closeConnection();
+            int nb;
+            if (r.next()) {
+                nb = r.getInt(1);
+                r.close();
+                return nb;
+            } else {
+                return 0;
+            }
+
+        } catch (Exception e) {
+            return 0;
         }
     }
 }

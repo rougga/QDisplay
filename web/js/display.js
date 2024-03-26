@@ -118,7 +118,7 @@ $(document).ready(function () {
             openSettingModal();
         } else {
             $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=" + obj + "&units=metric&lang=fr&APPID=37e60bb4041c616c61e2f0534aec11a9", function (data) {
-                $("#forcast").html(" - " + Math.round(data.main.temp) + "<small>°C</small> - " + data.name + " - " + capitalize(data.weather[0].description));
+                $("#forcast").html(" - " + Math.round(data.main.temp) + "<small>°C</small> - " + data.name + " - " + '<img class="weatherIcon" src="https://openweathermap.org/img/wn/'+data.weather[0].icon+'@2x.png" alt=""/>' + capitalize(data.weather[0].description));
             });
         }
 
@@ -155,6 +155,7 @@ $(document).ready(function () {
                                 + "<th scope='col'>Site</th>"
                                 + "<th scope='col'>Service</th>"
                                 + "<th scope='col'>Nb. É</th>"
+                                + "<th scope='col'>Nb. Att</th>"
                                 + "<th scope='col'>Nb. T</th>"
                                 + "<th scope='col'>Nb. A</th>"
                                 + "<th scope='col'>>Mo. Att</th>"
@@ -171,6 +172,7 @@ $(document).ready(function () {
                                             + "<th scope='row' class='text-center align-middle'>" + getOnlineIcon(isOnline) + site + "</th>"
                                             + "<td>" + data.result[i].table[j].service + "</td>"
                                             + "<td>" + data.result[i].table[j].data[0] + "</td>"
+                                            + "<td>" + data.result[i].table[j].data[14] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[1] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[2] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[8] + "</td>"
@@ -181,6 +183,7 @@ $(document).ready(function () {
                                     var row = "<tr>"
                                             + "<td>" + data.result[i].table[j].service + "</td>"
                                             + "<td>" + data.result[i].table[j].data[0] + "</td>"
+                                            + "<td>" + data.result[i].table[j].data[14] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[1] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[2] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[8] + "</td>"
@@ -193,6 +196,7 @@ $(document).ready(function () {
                         } else {
                             var row = "<tr>"
                                     + "<th scope='row' class='text-center align-middle'>" + getOnlineIcon(isOnline) + site + "</th>"
+                                    + "<td>--</td>"
                                     + "<td>--</td>"
                                     + "<td>--</td>"
                                     + "<td>--</td>"
@@ -224,6 +228,7 @@ $(document).ready(function () {
                                 + "<th scope='col'>Site</th>"
                                 + "<th scope='col'>Service</th>"
                                 + "<th scope='col'>Nb. É</th>"
+                                + "<th scope='col'>Nb. Att</th>"
                                 + "<th scope='col'>Nb. T</th>"
                                 + "<th scope='col'>Nb. A</th>"
                                 + "<th scope='col'>Mo. Att</th>"
@@ -240,6 +245,7 @@ $(document).ready(function () {
                                             + "<th scope='row' class='text-center align-middle'>" + getOnlineIcon(isOnline) + site + "</th>"
                                             + "<td>" + data.result[i].table[j].service + "</td>"
                                             + "<td>" + data.result[i].table[j].data[0] + "</td>"
+                                            + "<td>" + data.result[i].table[j].data[14] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[1] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[2] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[8] + "</td>"
@@ -250,6 +256,7 @@ $(document).ready(function () {
                                     var row = "<tr>"
                                             + "<td>" + data.result[i].table[j].service + "</td>"
                                             + "<td>" + data.result[i].table[j].data[0] + "</td>"
+                                            + "<td>" + data.result[i].table[j].data[14] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[1] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[2] + "</td>"
                                             + "<td>" + data.result[i].table[j].data[8] + "</td>"
@@ -262,6 +269,7 @@ $(document).ready(function () {
                         } else {
                             var row = "<tr>"
                                     + "<th scope='row' class='text-center align-middle'>" + getOnlineIcon(isOnline) + site + "</th>"
+                                    + "<td>--</td>"
                                     + "<td>--</td>"
                                     + "<td>--</td>"
                                     + "<td>--</td>"
@@ -288,7 +296,7 @@ $(document).ready(function () {
                     $(".site").addClass("col-md-6");
                 }
                 if ($(".full").length < 2) {
-                    $(".full").removeClass("col-md-6");
+                    //$(".full").removeClass("col-md-6");
                 }
                 if ((obj3 === 'true')) {
                     $("tr").removeClass("p-0").removeClass("m-0");

@@ -36,6 +36,9 @@
                             <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/affichage.jsp">Générale</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/tables.jsp">Tables</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/maj.jsp">M.A.J</a>
                         </li>
                         <li class="nav-item">

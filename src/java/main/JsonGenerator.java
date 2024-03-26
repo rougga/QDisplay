@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.controller.AgenceController;
 import main.controller.CibleController;
+import main.controller.ServiceController;
 import main.modal.Agence;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -33,6 +34,7 @@ public class JsonGenerator {
         AgenceController ac = new AgenceController();
         List<Agence> agences = ac.getAllAgence();
         CibleController cc = new CibleController();
+        ServiceController sc = new ServiceController();
         JSONObject all = new JSONObject();
         JSONArray result = new JSONArray();
         if (agences != null) {
@@ -152,6 +154,7 @@ public class JsonGenerator {
                             data.add("--");
                             data.add("-%");
                         }
+                        data.add(sc.getTodayWaitingTicketsByService(id, agences.get(i).getId()));
                         service.put("data", data);
                         table2.add(service);
                     }

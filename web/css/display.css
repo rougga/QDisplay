@@ -28,3 +28,7 @@ div.marquee > div.marquee-text {
 .bg-normal{
     background-color: #F9F871;
 }
+.weatherIcon{
+    width: 1.5em;
+    height: 1.5em;
+}

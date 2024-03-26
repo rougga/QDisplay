@@ -18,9 +18,10 @@ public class GetTables extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse response) {
 
         try {
-            PrintWriter out = response.getWriter();
-            response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            req.setCharacterEncoding("UTF-8");
             out.print(new JsonGenerator().generateSimpleGblTable(null, null));
             
         } catch (Exception ex) {
