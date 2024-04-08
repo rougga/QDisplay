@@ -49,9 +49,7 @@ public class CfgHandler {
     
     //Pages
 
-    public static String PAGE_HOME = "/QDisplay/home.jsp";
-    public static String PAGE_REPORT = "/QDisplay/report.jsp";
-    public static String PAGE_TASK = "/QDisplay/setting/taches.jsp";
+    public static String PAGE_HOME = "/QDisplay/index.html";
     
     //Pars
     private Properties prop = null;

@@ -89,7 +89,7 @@
                                         if (table != null) {
                                             for (int i = 0; i < table.size(); i++) {
                                     %>
-                                    <tr class="clickable-row5 border-dark">
+                                    <tr class="clickable-row5 border-dark <%= table.get(i).getId()%>" data-id="<%= table.get(i).getId()%>">
                                         <td class="border-dark align-middle"><%=table.get(i).getName()%></td>
                                         <td class="border-dark align-middle"><%=table.get(i).getHost() + ":" + table.get(i).getPort()%></td>
                                         <td class="border-dark align-middle"><%=table.get(i).getDatabase()%></td>

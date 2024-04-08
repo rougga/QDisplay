@@ -64,7 +64,17 @@
                             </div>
                             <hr />
                             <div class="form-group">
-                                <label for="ville">2 - Ville:</label>
+                                <label for="size">2 - Tailles d'entéte: <span id="titleSizeInfo">0</span> Pixel</label>
+                                <input type="range" class="form-control-range" id="titleSize" min="1" max="100">
+                            </div>
+                            <hr />
+                            <div class="form-group">
+                                <label for="size">3 - Tailles d'element: <span id="sizeInfo">0</span> Pixel</label>
+                                <input type="range" class="form-control-range" id="size" min="1" max="100">
+                            </div>
+                            <hr />
+                            <div class="form-group">
+                                <label for="ville">4 - Ville:</label>
                                 <select class="form-control" id="ville">
                                     <option selected disabled value="0">Sélectionnez une ville</option>
                                     <option value="Casablanca,Morocco">Casablanca</option>
@@ -93,39 +103,40 @@
                                 </select>
                             </div>
                             <div class="form-check my-3 mx-1">
-                                <input class="form-check-input " style="height:  20px;width: 20px;" type="checkbox" id="weather" checked>
+                                <input class="form-check-input " style="height:  20px;width: 20px;" type="checkbox" id="weather">
                                 <label class="form-check-label ml-3" for="weather">
                                     Activer la météo?
                                 </label>
                             </div>
                             <hr />
-                            <div class="form-group">
-                                <label for="size">3 - Tailles d'element: <span id="sizeInfo">0</span> Pixel</label>
-                                <input type="range" class="form-control-range" id="size" min="1" max="100">
-                            </div>
                             <div class="form-check my-3 mx-1">
                                 <input class="form-check-input " style="height:  20px;width: 20px;" type="checkbox" id="margin" value="">
                                 <label class="form-check-label ml-3" for="margin">
-                                    La marge?
+                                    La marge des elements?
                                 </label>
                             </div>
                             <hr />
                             <div class="form-group">
-                                <label for="text">4 - Text roulant:</label>
+                                <label for="text">5 - Text roulant:</label>
                                 <textarea class="form-control"  rows="3" id="text"></textarea>
                             </div>
                             <hr />
+                            <div class="form-group">
+                                <label for="textColor">6 - Couleur de Text roulant:</label>
+                                <input class="form-control"  type="color" id="textColor">
+                            </div>
+                            <hr />
                             <div class="form-check" >
-                                <input type="checkbox" class="form-check-input " id="hideEmpty" style="height:  20px;width: 20px;">
-                                <label for="hideEmpty" class="form-check-label ml-3">Masquer les tables vides? </label>
+                                <input type="checkbox" class="form-check-input " id="hideEmptyTables" style="height:  20px;width: 20px;">
+                                <label for="hideEmptyTables" class="form-check-label ml-3">Masquer les tables vides? </label>
                             </div>
                             <hr />
                             <div class="form-group mt-4">
-                                <label for="refreshTime">6 - Temps de rafraîchissement:</label>
+                                <label for="refreshTime">7 - Temps de rafraîchissement (seconde):</label>
                                 <input type="number" class="form-control" id="refreshTime" min="0" max="300">
                             </div>
                             <hr />
-                            
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-success" id="save">Enregistrer</button>
@@ -134,7 +145,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-</body>
+    </body>
 </html>
