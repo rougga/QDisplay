@@ -120,7 +120,7 @@ $(document).ready(function () {
     function isWeatherEnabled() {
         config.isWeatherEnabled = localStorage.getItem('isWeatherEnabled');
         if (config.isWeatherEnabled == undefined) {
-            config.isWeatherEnabled = true;
+            config.isWeatherEnabled = "true";
         }
         return  (config.isWeatherEnabled.toLowerCase() === 'true');
     }
@@ -135,7 +135,7 @@ $(document).ready(function () {
     function getRollingText() {
         config.text = localStorage.getItem('text');
         if (config.text == undefined) {
-            config.text = "";
+            config.text = "Bonjour";
         }
         return config.text;
     }
@@ -177,7 +177,7 @@ $(document).ready(function () {
     function getHideEmptyTablesStatus() {
         config.hideEmptyTables = localStorage.getItem('hideEmptyTables');
         if (config.hideEmptyTables == undefined) {
-            config.hideEmptyTables = false;
+            config.hideEmptyTables = "false";
         }
         return (config.hideEmptyTables.toLowerCase() === 'true');
     }
