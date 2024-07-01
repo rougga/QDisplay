@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    let pars = {};
     $("#size").on('change', function () {
         $('#sizeInfo').html($("#size").val());
         $("#main").css("font-size", $("#size").val() + "px");
@@ -11,7 +12,7 @@ $(document).ready(function () {
         //$("#main td").toggleClass("p-0");
     });
     $("#save").on('click', function () {
-        let pars = {};
+        
         var ville = $("#ville").val();
         var size = $("#size").val();
         let titleSize = $("#titleSize").val();
@@ -35,7 +36,7 @@ $(document).ready(function () {
             localStorage.setItem('tableRefreshTime', tableRefreshTime);
             localStorage.setItem('hideEmptyTables', hideEmptyTables);
             localStorage.setItem('textColor', textColor);
-            
+
 
             //sent params to api for db save
             pars.isWeatherEnabled = isWeatherEnabled;
@@ -49,7 +50,7 @@ $(document).ready(function () {
             pars.mode = mode;
             pars.tableRefreshTime = tableRefreshTime;
             pars.hideEmptyTables = hideEmptyTables;
-            
+
             console.log(pars);
             alert("Changement sauvgardé !!");
         } else {
@@ -58,17 +59,18 @@ $(document).ready(function () {
 
     });
 
-    var location = localStorage.getItem('location');
-    var size = localStorage.getItem('size');
-    var isMarginEnabled = (localStorage.getItem('margin').toLowerCase() === 'true');;
-    var mode = localStorage.getItem('mode');
-    var titleSize = localStorage.getItem('titleSize');
-    var isWeatherEnabled = (localStorage.getItem('isWeatherEnabled').toLowerCase() === 'true');
-    var tableRefreshTime = localStorage.getItem('tableRefreshTime');
-    var hideEmptyTables = (localStorage.getItem('hideEmptyTables').toLowerCase() === 'true');
-    var textColor = localStorage.getItem('textColor');
+    var location = localStorage.getItem('location') ? localStorage.getItem('location') : "Casablanca,Morocco";
+    var size = localStorage.getItem('size') ? localStorage.getItem('size') : "20";
+    var isMarginEnabled = localStorage.getItem('margin') ? (localStorage.getItem('margin').toLowerCase() == 'true') : false;
+    var mode = localStorage.getItem('mode') ? localStorage.getItem('mode') : "normal";
+    var titleSize = localStorage.getItem('titleSize') ? localStorage.getItem('titleSize') : "36";
+    var isWeatherEnabled = localStorage.getItem('isWeatherEnabled') ? (localStorage.getItem('isWeatherEnabled').toLowerCase() == 'true') : true;
+    var tableRefreshTime = localStorage.getItem('tableRefreshTime') ? localStorage.getItem('tableRefreshTime') : "30";
+    var hideEmptyTables = localStorage.getItem('hideEmptyTables') ? (localStorage.getItem('hideEmptyTables').toLowerCase() == 'true') : false;
+    var textColor = localStorage.getItem('textColor') ? localStorage.getItem('textColor') : "#ffffff";
+    var text = localStorage.getItem('text') ? localStorage.getItem('text') : "Bonjour";
     
-    console.log(isWeatherEnabled);
+    console.log("weather info is: " + isWeatherEnabled);
     $('#staticBackdrop').modal({});
     $('input[value="' + mode + '"]').attr("checked", "true");
     $("#ville").val(location);
@@ -76,7 +78,7 @@ $(document).ready(function () {
     $("#titleSize").val(titleSize);
     $('#sizeInfo').html($("#size").val());
     $('#titleSizeInfo').html($("#titleSize").val());
-    $("#text").val(localStorage.getItem('text'));
+    $("#text").val(text);
     $('#staticBackdrop').modal('toggle');
     $('#margin').attr("checked", isMarginEnabled);
     $('#weather').attr("checked", isWeatherEnabled);

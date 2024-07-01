@@ -24,10 +24,10 @@ div.marquee > div.marquee-text {
 }
 #setting{
     cursor: pointer;
-
+    opacity: 0;
 }
 #setting:hover{
-    opacity: 0.6;
+    opacity: 1;
 }
 .bg-black{
     background-color: black;

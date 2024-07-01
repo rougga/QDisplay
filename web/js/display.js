@@ -184,7 +184,7 @@ $(document).ready(function () {
     function getTheme() {
         config.mode = localStorage.getItem('mode');
         if (config.mode == undefined) {
-            config.mode = "eco";
+            config.mode = "normal";
         }
         return config.mode;
     }
