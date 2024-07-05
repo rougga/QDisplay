@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import main.CfgHandler;
 import main.Updater;
 import main.controller.AgenceController;
 import main.modal.Agence;
@@ -19,9 +20,9 @@ public class TodayUpdateAgence extends HttpServlet {
         String id = req.getParameter("id");
         if(!StringUtils.isBlank(id)){
             new Updater().updateDatabaseById(UUID.fromString(id));
-            resp.sendRedirect("/QData/setting/agences.jsp?err="+URLEncoder.encode(new AgenceController().getAgenceById(UUID.fromString(id)).getName(), "UTF-8")+"%20Updated");
+            resp.sendRedirect("/"+CfgHandler.APP+"/setting/agences.jsp?err="+URLEncoder.encode(new AgenceController().getAgenceById(UUID.fromString(id)).getName(), "UTF-8")+"%20Updated");
         }else{
-            resp.sendRedirect("/QData/setting/agences.jsp?err="+URLEncoder.encode("Erreur sur l'identifiant", "UTF-8"));
+            resp.sendRedirect("/"+CfgHandler.APP+"/setting/agences.jsp?err="+URLEncoder.encode("Erreur sur l'identifiant", "UTF-8"));
         }
     }
     

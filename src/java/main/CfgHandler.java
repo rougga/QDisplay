@@ -25,6 +25,7 @@ public class CfgHandler {
     public static final String VERSION = "0.1";
     public static final String COMPANY = "ROUGGA";
     public static final String CLIENT = "NST-Maroc";
+    public static final String YEAR = "2024";
     public static final int APP_PORT=8888;
     public static String APP_NODE="QStates";
     

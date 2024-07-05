@@ -1,4 +1,8 @@
-
+<%@page import="main.CfgHandler"%>
+<footer>
+    <a target="_blank" href="https://www.marocnst.ma/">CopyRight &COPY; <%= CfgHandler.YEAR + " " + CfgHandler.CLIENT %></a>
+    <p><%= CfgHandler.APP + " v" + CfgHandler.VERSION%></p>
+</footer>
 <!-- Modal -->
 <div class="modal fade" id="settings" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
     <div class="modal-dialog">

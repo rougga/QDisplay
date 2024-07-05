@@ -18,30 +18,23 @@ public class DeleteDatabase extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            if (Objects.equals(request.getSession().getAttribute("user"), null)) {
-                response.sendRedirect("./index.jsp");
-            } else {
-                if (Objects.equals(request.getSession().getAttribute("grade"), "adm")) {
 
-                    String id = request.getParameter("id");
-                    if (!StringUtils.isBlank(id)) {
-                        if (new AgenceController().deleteAgenceById(UUID.fromString(id)) == 1) {
-                            response.sendRedirect("./setting/agences.jsp?err=" + URLEncoder.encode("la base de données est supprimé", "UTF-8"));
-                        } else {
-                            response.sendRedirect("./settings/agences.jsp?err=" + URLEncoder.encode("la base de données n'est pas supprimé", "UTF-8"));
-                        }
-                    } else {
-                        response.sendRedirect("./setting/agences.jsp?err=" + URLEncoder.encode("un champ est vide", "UTF-8"));
-                    }
+            String id = request.getParameter("id");
+            if (!StringUtils.isBlank(id)) {
+                if (new AgenceController().deleteAgenceById(UUID.fromString(id)) == 1) {
+                    response.sendRedirect("./setting/agences.jsp?err=" + URLEncoder.encode("la base de données est supprimé", "UTF-8"));
                 } else {
-                    response.sendRedirect("./home.jsp?err=" + URLEncoder.encode("vous avez besoin des privilèges d'administrateur", "UTF-8"));
-
+                    response.sendRedirect("./settings/agences.jsp?err=" + URLEncoder.encode("la base de données n'est pas supprimé", "UTF-8"));
                 }
+            } else {
+                response.sendRedirect("./setting/agences.jsp?err=" + URLEncoder.encode("un champ est vide", "UTF-8"));
             }
+
         }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

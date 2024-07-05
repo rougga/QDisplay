@@ -61,7 +61,10 @@
                             <form action="" class="d-flex justify-content-center flex-column">
                                 <a class="btn btn-secondary m-1" id="majNowBtn"><img src="/<%= CfgHandler.APP%>/img/icon/maj.png"> Mise à jour (aujourd'hui)</a>
                                 <a class="btn btn-secondary m-1" id="majTBtn" ><img src="/<%= CfgHandler.APP%>/img/icon/maj.png"> Mise à jour tous les tickets</a>
+
+                                <!--
                                 <a class="btn btn-secondary m-1" id="majLBtn"><img src="/<%= CfgHandler.APP%>/img/icon/maj.png"> Mise à jour tout le journal de connexion</a>
+                                -->
                             </form>
                         </div>
                     </div>

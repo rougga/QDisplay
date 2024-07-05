@@ -121,6 +121,11 @@
                         </div>
                     </div>
                     <div class="footer">
+
+                        <footer class="text-white align-middle text-center">
+                            <a target="_blank" href="https://www.marocnst.ma/">CopyRight &COPY; <%= CfgHandler.YEAR + " " + CfgHandler.CLIENT%></a>
+                            <p><%= CfgHandler.APP + " v" + CfgHandler.VERSION%></p>
+                        </footer>
                         <div class="modal fade text-dark" id="dbModal" tabindex="-1" aria-labelledby="dbModalaria" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -165,7 +170,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-                                            <button type="submit" class="btn appBg text-white hover">Ajouter</button>
+                                            <button type="submit" class="btn btn-success text-white hover">Ajouter</button>
                                         </div>
                                     </form>
                                 </div>

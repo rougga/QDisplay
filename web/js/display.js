@@ -2,6 +2,8 @@
 $(document).ready(function () {
     let config = {};
     let names = {};
+
+
     moment.locale('fr', {
         months: 'Janvier_Février_Mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),
         monthsShort: 'Janv._Févr._Mars_Avr._Mai_Juin_Juil._Août_Sept._Oct._Nov._Déc.'.split('_'),
@@ -128,7 +130,7 @@ $(document).ready(function () {
         config.textColor = localStorage.getItem('textColor');
         ;
         if (config.textColor == undefined) {
-            config.textColor = "#000000";
+            config.textColor = "#ffffff";
         }
         return  config.textColor;
     }
@@ -350,18 +352,18 @@ $(document).ready(function () {
                     var rowspan = data.result[i].table.length;
                     if (data.result[i].table.length > 0) {
                         var site = data.result[i].site;
-                        var main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm full' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
+                        var main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
                                 + "<table class='table text-white " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element'>"
                                 + "<thead>"
                                 + "<tr>"
                                 + "<th scope='col' class='siteColumn'>" + getSiteName() + "</th>"
                                 + "<th scope='col' class='serviceColumn'>" + getServiceName() + "</th>"
-                                + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>"
-                                + "<th scope='col' class='nbattColumn'>" + getNbattName() + "</th>"
-                                + "<th scope='col' class='nbtColumn'>" + getNbtName() + "</th>"
-                                + "<th scope='col' class='nbaColumn'>" + getNbaName() + "</th>"
-                                + "<th scope='col' class='moyattColumn'>" + getMoyattName() + "</th>"
-                                + "<th scope='col' class='moytColumn'>" + getMoytName() + "</th>"
+                                + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>" //0
+                                + "<th scope='col' class='nbattColumn'>" + getNbattName() + "</th>" //14
+                                + "<th scope='col' class='moyattColumn'>" + getMoyattName() + "</th>" //8
+                                + "<th scope='col' class='nbtColumn'>" + getNbtName() + "</th>" //1
+                                + "<th scope='col' class='moytColumn'>" + getMoytName() + "</th>" //11
+                                + "<th scope='col' class='nbaColumn'>" + getNbaName() + "</th>" //2
                                 + "</tr>"
                                 + "</thead>"
                                 + "<tbody>"
@@ -375,10 +377,10 @@ $(document).ready(function () {
                                             + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
                                             + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
                                             + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
-                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
-                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
                                             + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
+                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
                                             + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
+                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
                                             + "</tr>";
                                     main += row;
                                 } else {
@@ -386,10 +388,10 @@ $(document).ready(function () {
                                             + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
                                             + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
                                             + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
-                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
-                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
                                             + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
+                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
                                             + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
+                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
                                             + "</tr>";
                                     main += row;
                                 }
@@ -401,10 +403,10 @@ $(document).ready(function () {
                                     + "<td class='serviceColumn'>--</td>"
                                     + "<td class='nbeColumn'>--</td>"
                                     + "<td class='nbattColumn'>--</td>"
-                                    + "<td class='nbtColumn'>--</td>"
-                                    + "<td class='nbaColumn'>--</td>"
                                     + "<td class='moyattColumn'>--</td>"
+                                    + "<td class='nbtColumn'>--</td>"
                                     + "<td class='moytColumn'>--</td>"
+                                    + "<td class='nbaColumn'>--</td>"
                                     + "</tr>";
                             main += row;
                         }
@@ -422,18 +424,18 @@ $(document).ready(function () {
                     var rowspan = data.result[i].table.length;
                     if (data.result[i].table.length <= 0) {
                         var site = data.result[i].site;
-                        var main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
+                        var main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm  empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
                                 + "<table class='table text-white " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element'>"
                                 + "<thead>"
                                 + "<tr>"
                                 + "<th scope='col' class='siteColumn'>" + getSiteName() + "</th>"
                                 + "<th scope='col' class='serviceColumn'>" + getServiceName() + "</th>"
-                                + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>"
-                                + "<th scope='col' class='nbattColumn'>" + getNbattName() + "</th>"
-                                + "<th scope='col' class='nbtColumn'>" + getNbtName() + "</th>"
-                                + "<th scope='col' class='nbaColumn'>" + getNbaName() + "</th>"
-                                + "<th scope='col' class='moyattColumn'>" + getMoyattName() + "</th>"
-                                + "<th scope='col' class='moytColumn'>" + getMoytName() + "</th>"
+                                + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>" //0
+                                + "<th scope='col' class='nbattColumn'>" + getNbattName() + "</th>" //14
+                                + "<th scope='col' class='moyattColumn'>" + getMoyattName() + "</th>" //8
+                                + "<th scope='col' class='nbtColumn'>" + getNbtName() + "</th>" //1
+                                + "<th scope='col' class='moytColumn'>" + getMoytName() + "</th>" //11
+                                + "<th scope='col' class='nbaColumn'>" + getNbaName() + "</th>" //2
                                 + "</tr>"
                                 + "</thead>"
                                 + "<tbody>"
@@ -447,10 +449,10 @@ $(document).ready(function () {
                                             + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
                                             + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
                                             + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
-                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
-                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
                                             + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
+                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
                                             + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
+                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
                                             + "</tr>";
                                     main += row;
                                 } else {
@@ -458,10 +460,10 @@ $(document).ready(function () {
                                             + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
                                             + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
                                             + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
-                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
-                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
                                             + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
+                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
                                             + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
+                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
                                             + "</tr>";
                                     main += row;
                                 }
@@ -473,10 +475,10 @@ $(document).ready(function () {
                                     + "<td class='serviceColumn'>--</td>"
                                     + "<td class='nbeColumn'>--</td>"
                                     + "<td class='nbattColumn'>--</td>"
-                                    + "<td class='nbtColumn'>--</td>"
-                                    + "<td class='nbaColumn'>--</td>"
                                     + "<td class='moyattColumn'>--</td>"
+                                    + "<td class='nbtColumn'>--</td>"
                                     + "<td class='moytColumn'>--</td>"
+                                    + "<td class='nbaColumn'>--</td>"
                                     + "</tr>";
                             main += row;
                         }
@@ -484,6 +486,7 @@ $(document).ready(function () {
                         main += "</tbody>"
                                 + "</table>"
                                 + "</div>";
+
                         $("#main").append(main);
                         $("." + i + " table tbody th:first").attr("rowspan", rowspan);
                     }
@@ -520,18 +523,22 @@ $(document).ready(function () {
                 $(".nbaColumn").css("width", getNbaSize() + "%");
                 $(".moyattColumn").css("width", getMoyattSize() + "%");
                 $(".moytColumn").css("width", getMoytSize() + "%");
-                
+
                 //hide empty tables
-                if(getHideEmptyTablesStatus()){
+                if (getHideEmptyTablesStatus()) {
                     $(".empty").hide();
                 }
-                
+
                 $("#main").css("font-size", obj2 + "px");
                 $(".site table td").addClass("p-0");
-
                 updateTheme();
+
+
+
             }
             );
+
+
         }
 
     };
