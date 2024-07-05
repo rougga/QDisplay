@@ -175,8 +175,8 @@
                 </form>
             </div>
         </div>
+                        <%@include file="../addon/footer.jsp" %>
     </div>
-</div>
-</div>
+
 </body>
 </html>

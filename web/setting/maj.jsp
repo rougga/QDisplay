@@ -89,6 +89,8 @@
                     </script>
                 </div>
             </div>
+                                
+            <%@include file="../addon/footer.jsp" %>
         </div>
     </body>
 </html>
