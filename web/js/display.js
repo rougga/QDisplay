@@ -2,7 +2,11 @@
 $(document).ready(function () {
     let config = {};
     let names = {};
-
+    var $grid = $('#main').masonry({
+        // options
+        itemSelector: '.site',
+        transitionDuration: 0
+    });
 
     moment.locale('fr', {
         months: 'Janvier_Février_Mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),
@@ -352,8 +356,10 @@ $(document).ready(function () {
                     var rowspan = data.result[i].table.length;
                     if (data.result[i].table.length > 0) {
                         var site = data.result[i].site;
-                        var main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
-                                + "<table class='table text-white " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element'>"
+//                        var main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
+                        var main = "<div class='card w-50 p-1 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
+                                + "<div class='card-body p-0 m-0'>"
+                                + "<table class='table text-white  " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element m-0'>"
                                 + "<thead>"
                                 + "<tr>"
                                 + "<th scope='col' class='siteColumn'>" + getSiteName() + "</th>"
@@ -413,8 +419,12 @@ $(document).ready(function () {
 
                         main += "</tbody>"
                                 + "</table>"
+                                + "</div>"
                                 + "</div>";
-                        $("#main").append(main);
+                        let $main = $(main);
+                        // add jQuery object
+                        $grid.append($main).masonry('appended', $main);
+                        //$("#main").append(main);
                         $("." + i + " table tbody th:first").attr("rowspan", rowspan);
                     }
                 }
@@ -424,8 +434,10 @@ $(document).ready(function () {
                     var rowspan = data.result[i].table.length;
                     if (data.result[i].table.length <= 0) {
                         var site = data.result[i].site;
-                        var main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm  empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
-                                + "<table class='table text-white " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element'>"
+//                        var main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm  empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
+                        var main = "<div class='card w-50 site m-0 p-1 " + i + " table-responsive-sm  empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
+                                + "<div class='card-body p-0 m-0'>"
+                                + "<table class='table m-0 text-white " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element '>"
                                 + "<thead>"
                                 + "<tr>"
                                 + "<th scope='col' class='siteColumn'>" + getSiteName() + "</th>"
@@ -485,9 +497,12 @@ $(document).ready(function () {
 
                         main += "</tbody>"
                                 + "</table>"
+                                + "</div>"
                                 + "</div>";
-
-                        $("#main").append(main);
+                        let $main2 = $(main);
+                        // add jQuery object
+                        $grid.append($main2).masonry('appended', $main2);
+                        //$("#main").append(main);
                         $("." + i + " table tbody th:first").attr("rowspan", rowspan);
                     }
                 }
@@ -532,7 +547,9 @@ $(document).ready(function () {
                 $("#main").css("font-size", obj2 + "px");
                 $(".site table td").addClass("p-0");
                 updateTheme();
-
+                
+                $grid.masonry('reloadItems');
+                $grid.masonry();
 
 
             }

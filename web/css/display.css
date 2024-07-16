@@ -39,3 +39,6 @@ div.marquee > div.marquee-text {
     width: 1.5em;
     height: 1.5em;
 }
+.table{
+    margin-bottom: 0;
+}
