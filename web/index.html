@@ -13,18 +13,30 @@
         <link href="css/display.css" rel="stylesheet" type="text/css"/>
         <script src="js/moment.min.js"></script>
         <script src="js/display.js"></script>
-      
+        <script src="js/display/functions.js"></script>
     </head>
     <body>
         <div class="w-100 h-100 row m-0 ">
-            <div class="w-100  align-self-start">
-                <h1 class="text-white text-center" id="title">
+            <div class="w-100  align-self-start ">
+                <div class="text-white text-center" id="title">
+                    <div class=' float-left btn-group dropdown m-1' id="zoneDropDown">
+                        <button type='button' class='btn btn-default font-weight-bold dropdown-toggle border-white text-white' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                            ZONE
+                        </button>
+                        <div class='dropdown-menu ' id='zones'>
+                            <span class='dropdown-item font-weight-bold zone'>
+                                <input type='checkbox'  class='mr-1 form-check-input checkAll' id='selectAll'><span id='textSelect'>Toutes les zones.</span>
+                            </span>
+                        </div>
+                    </div>
                     <b id="clock" class="font-digital">--:-- </b>
                     <small id="date">Lundi 21 Dec 2020 </small>
                     <span id="forcast">  </span>
-                    <a class="text-white float-right mr-1" id="setting" href="./setting/agences.jsp"><img src="img/icon/setting.png" alt=""/></a>
-                </h1>
-
+                    <a class="text-white float-right mr-2" id="setting" href="./setting/affichage.jsp"><img src="img/icon/setting.png" alt=""/></a>
+                    <p class="text-center text-white h6 m-0 p-0">
+                    -
+                    </p>
+                </div>
             </div>
             <div class="w-100 " id="main" >
 

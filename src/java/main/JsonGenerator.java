@@ -1,11 +1,14 @@
 package main;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import ma.rougga.nst.controller.central.ZoneController;
+import ma.rougga.nst.modal.central.Zone;
 import main.controller.AgenceController;
 import main.controller.CibleController;
 import main.controller.ServiceController;
@@ -17,7 +20,7 @@ public class JsonGenerator {
 
     private String date1;
     private String date2;
-    
+
     private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     public String getFormatedTime(Float Sec) {
@@ -173,14 +176,14 @@ public class JsonGenerator {
         }
         return all;
     }
-    
-    public JSONObject getAgencesJson(){
+
+    public JSONObject getAgencesJson() {
         AgenceController ac = new AgenceController();
         List<Agence> agences = ac.getAllAgence();
         JSONObject all = new JSONObject();
         JSONArray result = new JSONArray();
-         if (agences != null) {
-            for(int i = 0; i < agences.size(); i++) {
+        if (agences != null) {
+            for (int i = 0; i < agences.size(); i++) {
                 JSONObject agenceO = new JSONObject();
                 agenceO.put("id", agences.get(i).getId().toString());
                 agenceO.put("name", agences.get(i).getName());
@@ -189,7 +192,31 @@ public class JsonGenerator {
                 result.add(agenceO);
             }
             all.put("result", result);
-         }
-         return all;
+        }
+        return all;
+    }
+
+    public JSONObject getZonesJson() {
+        JSONObject all = new JSONObject();
+        JSONArray result = new JSONArray();
+        try {
+            ZoneController zc = new ZoneController(new PgConnection().getStatement());
+            List<Zone> zones = zc.getAllZones();
+
+            if (zones != null) {
+                for (int i = 0; i < zones.size(); i++) {
+                    JSONObject zone = new JSONObject();
+                    zone.put("id", zones.get(i).getId().toString());
+                    zone.put("name", zones.get(i).getName());
+                    zone.put("city", zones.get(i).getCity());
+                    zone.put("code", zones.get(i).getCode());
+                    result.add(zone);
+                }
+                all.put("result", result);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(JsonGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return all;
     }
 }

@@ -22,11 +22,11 @@ div.marquee > div.marquee-text {
     display:inline;
     width:auto;
 }
-#setting{
+#setting,#zoneDropDown{
     cursor: pointer;
     opacity: 0;
 }
-#setting:hover{
+#setting:hover,#zoneDropDown:hover{
     opacity: 1;
 }
 .bg-black{
@@ -41,4 +41,8 @@ div.marquee > div.marquee-text {
 }
 .table{
     margin-bottom: 0;
+}
+.check,#selectAll{
+    width: 15px;
+    height: 15px;
 }
