@@ -166,7 +166,6 @@ function getMoytName() {
     }
     return names.moytName;
 }
-
 function getSiteSize() {
     names.siteSize = localStorage.getItem('siteSize');
     if (names.siteSize == undefined) {
@@ -247,7 +246,7 @@ function getTableResposiveStatus() {
 
 
 // UPDATERS
-var getWeather = function () {
+var updateWeather = function () {
     if (isWeatherEnabled()) {
         $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=" + getLocation() + "&units=metric&lang=fr&APPID=37e60bb4041c616c61e2f0534aec11a9", function (data) {
             $("#forcast").html(" - " + Math.round(data.main.temp) + "<small>°C</small> - " + data.name + " - " + '<img class="weatherIcon" src="https://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png" alt=""/>' + capitalize(data.weather[0].description));
@@ -266,7 +265,6 @@ var updateTables = function (selectedZones) {
         obj3 = "0";
     } else {
         if (selectedZones) {
-            console.log(selectedZones);
             $.getJSON("./api/gettables", {selectedZonesIds: selectedZones.selectedZonesIds}, function (data) {
                 $("#main").html("");
                 for (var i = 0; i < data.result.length; i++) {
@@ -521,10 +519,12 @@ var updateZoneDropdown = function () {
             $("#zones").append(html);
             console.log("(" + moment().format('HH:mm:ss dddd DD/MM/YYYY') + ") - ZoneDropdown Updated");
         }
+    }).always(function () {
+        checkZoneCheckBoxes();
     });
 };
 
-
+// Zone CheckBox
 var checkZoneCheckBoxes = function () {
     var selectedZones = JSON.parse(localStorage.getItem("selectedZones"));
     var selectedZonesIds = selectedZones.selectedZonesIds;
@@ -542,7 +542,7 @@ var checkZoneCheckBoxes = function () {
     } else {
         $("#selectAll").prop("checked", false);
     }
-    console.log("Selected Zones: " + selectedZones.selectedZonesNames.toString());
+
 };
 var getCheckedZones = function () {
     var selectedZones = {};
@@ -576,13 +576,12 @@ var updateSelectedZonesDisplay = function (selectedZones) {
         $("#selectedZonesDisplay").html("-");
     }
 };
-
 var updateZones = function () {
     let selectedZones = getCheckedZones();
     localStorage.setItem("selectedZones", JSON.stringify(selectedZones));
     updateSelectedZonesDisplay(selectedZones);
     checkZoneCheckBoxes();
-    //updateTables(selectedZones);
+    updateTables(selectedZones);
 };
 
  

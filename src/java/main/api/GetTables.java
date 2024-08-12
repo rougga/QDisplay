@@ -1,5 +1,6 @@
 package main.api;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,16 +17,15 @@ public class GetTables extends HttpServlet {
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
             req.setCharacterEncoding("UTF-8");
-            String[] selectedZonesIds = req.getParameterValues("selectedZonesIds");
-            System.err.println("selectedZonesIds=" + selectedZonesIds);
+            String[] selectedZonesIds = req.getParameterValues("selectedZonesIds[]");
             if (selectedZonesIds != null) {
                 out.print(new JsonGenerator().generateSimpleGblTable(null, null, selectedZonesIds));
             } else {
-                out.print(new JsonGenerator().generateSimpleGblTable(null, null, null));
+                out.print("selectedZonesIds = null");
             }
 
-        } catch (Exception ex) {
-
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
         }
 
     }

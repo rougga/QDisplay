@@ -82,6 +82,11 @@ $(document).ready(function () {
         transitionDuration: 0
     });
 
+
+
+
+
+
 //listners
     $("#main").on('click', function () {
         toggleFullScreen(document.body);
@@ -111,14 +116,14 @@ $(document).ready(function () {
 
 
     //updaters
-    getWeather();
+    updateWeather();
     updateTables(getCheckedZonesFromLocalStorage());
     updateTicker();
     updateTheme();
     updateZoneDropdown();
     checkZoneCheckBoxes();
     setInterval(function () {
-        getWeather();
+        updateWeather();
         updateTables(getCheckedZonesFromLocalStorage());
         updateTicker();
         updateTheme();

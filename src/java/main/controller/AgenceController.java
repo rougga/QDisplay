@@ -1,11 +1,8 @@
 package main.controller;
 
-import java.io.IOException;
-import java.net.Socket;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +11,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import ma.rougga.nst.controller.central.ZoneController;
+import ma.rougga.nst.modal.central.Zone;
 import main.PgConnection;
 import main.PgMultiConnection;
 import main.modal.Agence;
@@ -39,6 +38,27 @@ public class AgenceController {
         }
     }
 
+    public List<Agence> getAgencesByZone(UUID id_zone) {
+        try {
+            List<Agence> agences = new ArrayList();
+            PgConnection con = new PgConnection();
+            PreparedStatement ps = con.getStatement()
+                    .getConnection()
+                    .prepareStatement("select id_agence from rougga_agence_zone where id_zone=?;");
+            
+            ps.setString(1, id_zone.toString());
+            ResultSet r = ps.executeQuery();
+            while (r.next()) {
+                agences.add(this.getAgenceById(UUID.fromString(r.getString("id_agence"))));
+            }
+            con.closeConnection();
+            return agences;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AgenceController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            return null;
+        }
+    }
+    
     public int addAgence(Agence a) {
         try {
             PgConnection con = new PgConnection();
@@ -170,7 +190,42 @@ public class AgenceController {
             Logger.getLogger(AgenceController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
+    
+    public void setZone(UUID id_agence, UUID id_zone){
+        try {
+            PgConnection con = new PgConnection();
+            PreparedStatement p = con.getStatement().getConnection().prepareStatement("insert into rougga_agence_zone values(?,?);");
+            p.setString(1, id_agence.toString());
+            p.setString(2, id_zone.toString());
+            p.execute();
+            con.closeConnection();
 
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AgenceController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+    }
+
+    public Zone getAgenceZoneByAgenceId(UUID id_agence){
+        try {
+            Zone a;
+            PgConnection con = new PgConnection();
+            PreparedStatement p = con.getStatement().getConnection().prepareStatement("select * from rougga_agence_zone where id_agence=? ;");
+            p.setString(1, id_agence.toString());
+            ResultSet r = p.executeQuery();
+            if (r.next()) {
+                a = new ZoneController(con.getStatement()).getZoneById(UUID.fromString(r.getString("id_zone")));
+                con.closeConnection();
+                return a;
+            } else {
+                con.closeConnection();
+                return null;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AgenceController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            return null;
+        }
+    }
+    
     public void updateAllAgenceName() {
         List<Agence> agences = new AgenceController().getAllAgence();
         if (agences != null) {
@@ -239,4 +294,6 @@ public class AgenceController {
             System.out.println("-- Agence "+a.getName()+" updated.");
         }
     }
+    
+    
 }
