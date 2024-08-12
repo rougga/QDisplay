@@ -1,10 +1,6 @@
 let config = {};
 let names = {};
-var $grid = $('#main').masonry({
-    // options
-    itemSelector: '.site',
-    transitionDuration: 0
-});
+var $grid;
 const capitalize = (s) => {
     if (typeof s !== 'string')
         return '';
@@ -256,12 +252,12 @@ var getWeather = function () {
         $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=" + getLocation() + "&units=metric&lang=fr&APPID=37e60bb4041c616c61e2f0534aec11a9", function (data) {
             $("#forcast").html(" - " + Math.round(data.main.temp) + "<small>°C</small> - " + data.name + " - " + '<img class="weatherIcon" src="https://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png" alt=""/>' + capitalize(data.weather[0].description));
         });
-        console.log("Weather Updated: (" + moment().format('HH:mm:ss dddd DD/MM/YYYY') + ").");
+        console.log("(" + moment().format('HH:mm:ss dddd DD/MM/YYYY') + ") - Weather Updated");
     } else {
         $("#forcast").html("");
     }
 };
-var updateTables = function (id_zones) {
+var updateTables = function (selectedZones) {
     var obj2 = getElementSize();
     var obj3 = getMarginStatus();
     if (obj2 == undefined || obj3 == undefined) {
@@ -269,211 +265,217 @@ var updateTables = function (id_zones) {
         obj2 = "30";
         obj3 = "0";
     } else {
-        $.getJSON("./api/gettables", function (data) {
-            $("#main").html("");
-            for (var i = 0; i < data.result.length; i++) {
-                var isOnline = data.result[i].isOnline;
-                var rowspan = data.result[i].table.length;
-                if (data.result[i].table.length > 0) {
-                    var site = data.result[i].site;
+        if (selectedZones) {
+            console.log(selectedZones);
+            $.getJSON("./api/gettables", {selectedZonesIds: selectedZones.selectedZonesIds}, function (data) {
+                $("#main").html("");
+                for (var i = 0; i < data.result.length; i++) {
+                    var isOnline = data.result[i].isOnline;
+                    var rowspan = data.result[i].table.length;
+                    if (data.result[i].table.length > 0) {
+                        var site = data.result[i].site;
 //                        var main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
-                    var main = "<div class='card w-50 p-1 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
-                            + "<div class='card-body p-0 m-0'>"
-                            + "<table class='table text-white  " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element m-0'>"
-                            + "<thead>"
-                            + "<tr>"
-                            + "<th scope='col' class='siteColumn'>" + getSiteName() + "</th>"
-                            + "<th scope='col' class='serviceColumn'>" + getServiceName() + "</th>"
-                            + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>" //0
-                            + "<th scope='col' class='nbattColumn'>" + getNbattName() + "</th>" //14
-                            + "<th scope='col' class='moyattColumn'>" + getMoyattName() + "</th>" //8
-                            + "<th scope='col' class='nbtColumn'>" + getNbtName() + "</th>" //1
-                            + "<th scope='col' class='moytColumn'>" + getMoytName() + "</th>" //11
-                            + "<th scope='col' class='nbaColumn'>" + getNbaName() + "</th>" //2
-                            + "</tr>"
-                            + "</thead>"
-                            + "<tbody>"
-                            ;
-                    if (data.result[i].table.length > 0) {
-                        for (var j = 0; j < data.result[i].table.length; j++) {
+                        var main = "<div class=' w-50 p-1 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
+                                + "<div class=' p-0 m-0'>"
+                                + "<table class='table text-white  " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element m-0'>"
+                                + "<thead>"
+                                + "<tr>"
+                                + "<th scope='col' class='siteColumn'>" + getSiteName() + "</th>"
+                                + "<th scope='col' class='serviceColumn'>" + getServiceName() + "</th>"
+                                + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>" //0
+                                + "<th scope='col' class='nbattColumn'>" + getNbattName() + "</th>" //14
+                                + "<th scope='col' class='moyattColumn'>" + getMoyattName() + "</th>" //8
+                                + "<th scope='col' class='nbtColumn'>" + getNbtName() + "</th>" //1
+                                + "<th scope='col' class='moytColumn'>" + getMoytName() + "</th>" //11
+                                + "<th scope='col' class='nbaColumn'>" + getNbaName() + "</th>" //2
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>"
+                                ;
+                        if (data.result[i].table.length > 0) {
+                            for (var j = 0; j < data.result[i].table.length; j++) {
 
-                            if (j === 0) {
-                                var row = "<tr>"
-                                        + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
-                                        + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
-                                        + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
-                                        + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
-                                        + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
-                                        + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
-                                        + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
-                                        + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
-                                        + "</tr>";
-                                main += row;
-                            } else {
-                                var row = "<tr>"
-                                        + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
-                                        + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
-                                        + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
-                                        + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
-                                        + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
-                                        + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
-                                        + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
-                                        + "</tr>";
-                                main += row;
+                                if (j === 0) {
+                                    var row = "<tr>"
+                                            + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
+                                            + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
+                                            + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
+                                            + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
+                                            + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
+                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
+                                            + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
+                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
+                                            + "</tr>";
+                                    main += row;
+                                } else {
+                                    var row = "<tr>"
+                                            + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
+                                            + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
+                                            + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
+                                            + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
+                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
+                                            + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
+                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
+                                            + "</tr>";
+                                    main += row;
+                                }
+
                             }
-
+                        } else {
+                            var row = "<tr>"
+                                    + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
+                                    + "<td class='serviceColumn'>--</td>"
+                                    + "<td class='nbeColumn'>--</td>"
+                                    + "<td class='nbattColumn'>--</td>"
+                                    + "<td class='moyattColumn'>--</td>"
+                                    + "<td class='nbtColumn'>--</td>"
+                                    + "<td class='moytColumn'>--</td>"
+                                    + "<td class='nbaColumn'>--</td>"
+                                    + "</tr>";
+                            main += row;
                         }
-                    } else {
-                        var row = "<tr>"
-                                + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
-                                + "<td class='serviceColumn'>--</td>"
-                                + "<td class='nbeColumn'>--</td>"
-                                + "<td class='nbattColumn'>--</td>"
-                                + "<td class='moyattColumn'>--</td>"
-                                + "<td class='nbtColumn'>--</td>"
-                                + "<td class='moytColumn'>--</td>"
-                                + "<td class='nbaColumn'>--</td>"
-                                + "</tr>";
-                        main += row;
+
+                        main += "</tbody>"
+                                + "</table>"
+                                + "</div>"
+                                + "</div>";
+                        let $main = $(main);
+                        // add jQuery object
+                        $grid.append($main).masonry('appended', $main);
+                        //$("#main").append(main);
+                        $("." + i + " table tbody th:first").attr("rowspan", rowspan);
                     }
-
-                    main += "</tbody>"
-                            + "</table>"
-                            + "</div>"
-                            + "</div>";
-                    let $main = $(main);
-                    // add jQuery object
-                    $grid.append($main).masonry('appended', $main);
-                    //$("#main").append(main);
-                    $("." + i + " table tbody th:first").attr("rowspan", rowspan);
                 }
-            }
 
-            for (var i = 0; i < data.result.length; i++) {
-                var isOnline = data.result[i].isOnline;
-                var rowspan = data.result[i].table.length;
-                if (data.result[i].table.length <= 0) {
-                    var site = data.result[i].site;
+                for (var i = 0; i < data.result.length; i++) {
+                    var isOnline = data.result[i].isOnline;
+                    var rowspan = data.result[i].table.length;
+                    if (data.result[i].table.length <= 0) {
+                        var site = data.result[i].site;
 //                        var main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm  empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
-                    var main = "<div class='card w-50 site m-0 p-1 " + i + " table-responsive-sm  empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
-                            + "<div class='card-body p-0 m-0'>"
-                            + "<table class='table m-0 text-white " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element '>"
-                            + "<thead>"
-                            + "<tr>"
-                            + "<th scope='col' class='siteColumn'>" + getSiteName() + "</th>"
-                            + "<th scope='col' class='serviceColumn'>" + getServiceName() + "</th>"
-                            + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>" //0
-                            + "<th scope='col' class='nbattColumn'>" + getNbattName() + "</th>" //14
-                            + "<th scope='col' class='moyattColumn'>" + getMoyattName() + "</th>" //8
-                            + "<th scope='col' class='nbtColumn'>" + getNbtName() + "</th>" //1
-                            + "<th scope='col' class='moytColumn'>" + getMoytName() + "</th>" //11
-                            + "<th scope='col' class='nbaColumn'>" + getNbaName() + "</th>" //2
-                            + "</tr>"
-                            + "</thead>"
-                            + "<tbody>"
-                            ;
-                    if (data.result[i].table.length > 0) {
-                        for (var j = 0; j < data.result[i].table.length; j++) {
+                        var main = "<div class=' w-50 site m-0 p-1 " + i + " table-responsive-sm  empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
+                                + "<div class=' p-0 m-0'>"
+                                + "<table class='table m-0 text-white " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element '>"
+                                + "<thead>"
+                                + "<tr>"
+                                + "<th scope='col' class='siteColumn'>" + getSiteName() + "</th>"
+                                + "<th scope='col' class='serviceColumn'>" + getServiceName() + "</th>"
+                                + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>" //0
+                                + "<th scope='col' class='nbattColumn'>" + getNbattName() + "</th>" //14
+                                + "<th scope='col' class='moyattColumn'>" + getMoyattName() + "</th>" //8
+                                + "<th scope='col' class='nbtColumn'>" + getNbtName() + "</th>" //1
+                                + "<th scope='col' class='moytColumn'>" + getMoytName() + "</th>" //11
+                                + "<th scope='col' class='nbaColumn'>" + getNbaName() + "</th>" //2
+                                + "</tr>"
+                                + "</thead>"
+                                + "<tbody>"
+                                ;
+                        if (data.result[i].table.length > 0) {
+                            for (var j = 0; j < data.result[i].table.length; j++) {
 
-                            if (j === 0) {
-                                var row = "<tr>"
-                                        + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
-                                        + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
-                                        + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
-                                        + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
-                                        + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
-                                        + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
-                                        + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
-                                        + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
-                                        + "</tr>";
-                                main += row;
-                            } else {
-                                var row = "<tr>"
-                                        + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
-                                        + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
-                                        + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
-                                        + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
-                                        + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
-                                        + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
-                                        + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
-                                        + "</tr>";
-                                main += row;
+                                if (j === 0) {
+                                    var row = "<tr>"
+                                            + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
+                                            + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
+                                            + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
+                                            + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
+                                            + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
+                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
+                                            + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
+                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
+                                            + "</tr>";
+                                    main += row;
+                                } else {
+                                    var row = "<tr>"
+                                            + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
+                                            + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
+                                            + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
+                                            + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
+                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
+                                            + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
+                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
+                                            + "</tr>";
+                                    main += row;
+                                }
+
                             }
-
+                        } else {
+                            var row = "<tr>"
+                                    + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
+                                    + "<td class='serviceColumn'>--</td>"
+                                    + "<td class='nbeColumn'>--</td>"
+                                    + "<td class='nbattColumn'>--</td>"
+                                    + "<td class='moyattColumn'>--</td>"
+                                    + "<td class='nbtColumn'>--</td>"
+                                    + "<td class='moytColumn'>--</td>"
+                                    + "<td class='nbaColumn'>--</td>"
+                                    + "</tr>";
+                            main += row;
                         }
-                    } else {
-                        var row = "<tr>"
-                                + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
-                                + "<td class='serviceColumn'>--</td>"
-                                + "<td class='nbeColumn'>--</td>"
-                                + "<td class='nbattColumn'>--</td>"
-                                + "<td class='moyattColumn'>--</td>"
-                                + "<td class='nbtColumn'>--</td>"
-                                + "<td class='moytColumn'>--</td>"
-                                + "<td class='nbaColumn'>--</td>"
-                                + "</tr>";
-                        main += row;
+
+                        main += "</tbody>"
+                                + "</table>"
+                                + "</div>"
+                                + "</div>";
+                        let $main2 = $(main);
+                        // add jQuery object
+                        $grid.append($main2).masonry('appended', $main2);
+                        //$("#main").append(main);
+                        $("." + i + " table tbody th:first").attr("rowspan", rowspan);
                     }
-
-                    main += "</tbody>"
-                            + "</table>"
-                            + "</div>"
-                            + "</div>";
-                    let $main2 = $(main);
-                    // add jQuery object
-                    $grid.append($main2).masonry('appended', $main2);
-                    //$("#main").append(main);
-                    $("." + i + " table tbody th:first").attr("rowspan", rowspan);
                 }
+
+                //changine size based on number of tables
+                if ($(".site").length <= 2) {
+                    $(".site").removeClass("col-md-6");
+                } else {
+                    $(".site").addClass("col-md-6");
+                }
+                if ($(".full").length < 2) {
+                    //$(".full").removeClass("col-md-6");
+                }
+
+                //margin
+                if ((obj3 === 'true')) {
+                    $("tr").removeClass("p-0").removeClass("m-0");
+                    $("table").removeClass("p-0").removeClass("m-0");
+                    $("tbody *").removeClass("p-0").removeClass("m-0");
+                    $("td").removeClass("p-0").removeClass("m-0");
+                } else {
+                    $("tr").addClass("p-0").addClass("m-0");
+                    $("table").addClass("p-0").addClass("m-0");
+                    $("tbody *").addClass("p-0").addClass("m-0");
+                    $("td").addClass("p-0").addClass("m-0");
+                }
+                //column sizes
+                $(".siteColumn").css("width", getSiteSize() + "%");
+                $(".serviceColumn").css("width", getServiceSize() + "%");
+                $(".nbeColumn").css("width", getNbeSize() + "%");
+                $(".nbattColumn").css("width", getNbattSize() + "%");
+                $(".nbtColumn").css("width", getNbtSize() + "%");
+                $(".nbaColumn").css("width", getNbaSize() + "%");
+                $(".moyattColumn").css("width", getMoyattSize() + "%");
+                $(".moytColumn").css("width", getMoytSize() + "%");
+
+                //hide empty tables
+                if (getHideEmptyTablesStatus()) {
+                    $(".empty").hide();
+                }
+
+                $("#main").css("font-size", obj2 + "px");
+                $(".site table td").addClass("p-0");
+                updateTheme();
+
+                $grid.masonry('reloadItems');
+                $grid.masonry();
+
+
             }
-
-            //changine size based on number of tables
-            if ($(".site").length <= 2) {
-                $(".site").removeClass("col-md-6");
-            } else {
-                $(".site").addClass("col-md-6");
-            }
-            if ($(".full").length < 2) {
-                //$(".full").removeClass("col-md-6");
-            }
-
-            //margin
-            if ((obj3 === 'true')) {
-                $("tr").removeClass("p-0").removeClass("m-0");
-                $("table").removeClass("p-0").removeClass("m-0");
-                $("tbody *").removeClass("p-0").removeClass("m-0");
-                $("td").removeClass("p-0").removeClass("m-0");
-            } else {
-                $("tr").addClass("p-0").addClass("m-0");
-                $("table").addClass("p-0").addClass("m-0");
-                $("tbody *").addClass("p-0").addClass("m-0");
-                $("td").addClass("p-0").addClass("m-0");
-            }
-            //column sizes
-            $(".siteColumn").css("width", getSiteSize() + "%");
-            $(".serviceColumn").css("width", getServiceSize() + "%");
-            $(".nbeColumn").css("width", getNbeSize() + "%");
-            $(".nbattColumn").css("width", getNbattSize() + "%");
-            $(".nbtColumn").css("width", getNbtSize() + "%");
-            $(".nbaColumn").css("width", getNbaSize() + "%");
-            $(".moyattColumn").css("width", getMoyattSize() + "%");
-            $(".moytColumn").css("width", getMoytSize() + "%");
-
-            //hide empty tables
-            if (getHideEmptyTablesStatus()) {
-                $(".empty").hide();
-            }
-
-            $("#main").css("font-size", obj2 + "px");
-            $(".site table td").addClass("p-0");
-            updateTheme();
-
-            $grid.masonry('reloadItems');
-            $grid.masonry();
-
-
+            );
+        } else {
+            console.log("err");
         }
-        );
+
 
 
     }
@@ -510,37 +512,77 @@ var updateTheme = function () {
 var updateZoneDropdown = function () {
     $.getJSON("./api/getzones", function (data) {
         if (data.result) {
-            console.log("(" + moment().format('HH:mm:ss dddd DD/MM/YYYY') + ") - ZoneDropdown Updated");
+            $(".azone").remove();
             let html = "";
             for (let i = 0; i < data.result.length; i++) {
-                html += "<span class='dropdown-item font-weight-bold zone'>";
-                html += "<input type='checkbox'  class='mr-1 form-check-input check' value='" + data.result[i].id + "'><span class='textSelect' data-id='"+data.result[i].id+"'>" + data.result[i].name + "</span>";
+                html += "<span class='dropdown-item font-weight-bold zone azone'>";
+                html += "<input type='checkbox'  class='mr-1 form-check-input check' value='" + data.result[i].id + "' data-name=" + data.result[i].name + "><span class='textSelect' data-id='" + data.result[i].id + "'>" + data.result[i].name + "</span></span>";
             }
             $("#zones").append(html);
+            console.log("(" + moment().format('HH:mm:ss dddd DD/MM/YYYY') + ") - ZoneDropdown Updated");
         }
     });
 };
 
 
 var checkZoneCheckBoxes = function () {
-    var arr = JSON.parse(sessionStorage.getItem("selectedZones"));
-    if (arr === null) {
-        $(".zoneCheckbox").prop("checked", true);
-    } else {
-        $(".zoneCheckbox").prop("checked", false);
-        for (var i = 0; i < arr.length; i++) {
-            $(".zoneCheckbox[value='" + arr[i] + "']").prop("checked", true);
+    var selectedZones = JSON.parse(localStorage.getItem("selectedZones"));
+    var selectedZonesIds = selectedZones.selectedZonesIds;
+    updateSelectedZonesDisplay(selectedZones);
+    if (selectedZonesIds) {
+        $(".check").prop("checked", false);
+        for (var i = 0; i < selectedZonesIds.length; i++) {
+            $(".check[value='" + selectedZonesIds[i] + "']").prop("checked", true);
         }
+    } else {
+        $(".check").prop("checked", false);
     }
-
+    if (selectedZonesIds.length === ($(".zone").length - 1)) {
+        $("#selectAll").prop("checked", true);
+    } else {
+        $("#selectAll").prop("checked", false);
+    }
+    console.log("Selected Zones: " + selectedZones.selectedZonesNames.toString());
 };
 var getCheckedZones = function () {
+    var selectedZones = {};
     var searchIDs = $(".check:checked").map(function () {
         if ($(this).val() !== "on") {
             return $(this).val();
         }
 
     }).get();
-    console.log(searchIDs);
-    return searchIDs;
+    var selectedZonesNames = $(".check:checked").map(function () {
+        if ($(this).val() !== "on") {
+            return $(this).attr("data-name");
+        }
+
+    }).get();
+    selectedZones.selectedZonesIds = searchIDs;
+    selectedZones.selectedZonesNames = selectedZonesNames;
+    return selectedZones;
 };
+var getCheckedZonesFromLocalStorage = function () {
+    return   JSON.parse(localStorage.getItem("selectedZones"));
+};
+var updateSelectedZonesDisplay = function (selectedZones) {
+    if (selectedZones.selectedZonesNames.length > 0) {
+        $("#selectedZonesDisplay").html("");
+        selectedZones.selectedZonesNames.forEach(function (entry) {
+            let html = "<span class='badge badge-pill badge-light mx-1'>" + entry + "</span>";
+            $("#selectedZonesDisplay").append(html);
+        });
+    } else {
+        $("#selectedZonesDisplay").html("-");
+    }
+};
+
+var updateZones = function () {
+    let selectedZones = getCheckedZones();
+    localStorage.setItem("selectedZones", JSON.stringify(selectedZones));
+    updateSelectedZonesDisplay(selectedZones);
+    checkZoneCheckBoxes();
+    //updateTables(selectedZones);
+};
+
+ 

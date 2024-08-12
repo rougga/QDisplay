@@ -18,7 +18,7 @@
         <script src="/<%= CfgHandler.APP%>/js/settings.js"></script>
         <script src="/<%= CfgHandler.APP%>/js/setting/affichage.js"></script>
     </head>
-    <body>
+    <body class="bg-black">
         <div class="container-fluid bg-black vh-full">
 
             <div class="p-3">

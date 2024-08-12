@@ -76,53 +76,54 @@ $(document).ready(function () {
             updateTime();
         }, 1000 / 60));
     });
-
+     $grid = $('#main').masonry({
+        // options
+        itemSelector: '.site',
+        transitionDuration: 0
+    });
 
 //listners
     $("#main").on('click', function () {
         toggleFullScreen(document.body);
     });
-    $(".check").on('change', function () {
-       // sessionStorage.setItem("selectedZones", JSON.stringify(getCheckedZones()));
-        console.log("tt");
-        //updateTables();
+    $("#zones").on('change', ".check", function () {
+        updateZones();
     });
-    $(".textSelect").on('click', function () {
-        console.log("tt");
+    $("#zones").on('click', ".textSelect", function () {
         var id = $(this).attr("data-id");
         var check = $("input[value=" + id + "]");
         if ($(check).prop("checked")) {
             $(check).prop("checked", false);
-            sessionStorage.setItem("selectedZones", JSON.stringify(getCheckedZones()));
         } else {
             $(check).prop("checked", true);
-            sessionStorage.setItem("selectedZones", JSON.stringify(getCheckedZones()));
         }
+        updateZones();
     });
     $("#selectAll").on('change', function () {
         if ($(this).prop("checked")) {
             $(".check").prop("checked", true);
-            sessionStorage.setItem("selectedZones", JSON.stringify(getCheckedZones()));
         } else {
             $(".check").prop("checked", false);
-            sessionStorage.setItem("selectedZones", JSON.stringify(getCheckedZones()));
         }
+        updateZones();
     });
 
 
 
     //updaters
     getWeather();
-    updateTables();
+    updateTables(getCheckedZonesFromLocalStorage());
     updateTicker();
     updateTheme();
     updateZoneDropdown();
-    getCheckedZones();
+    checkZoneCheckBoxes();
     setInterval(function () {
         getWeather();
-        updateTables();
+        updateTables(getCheckedZonesFromLocalStorage());
         updateTicker();
         updateTheme();
-        console.log("Updated (" + moment().format('HH:mm:ss dddd DD/MM/YYYY') + ").");
+        updateZoneDropdown();
+        checkZoneCheckBoxes();
+        console.log("(" + moment().format('HH:mm:ss dddd DD/MM/YYYY') + ") - Updated");
     }, getTableRefreshTime() * 1000);
 });

@@ -30,7 +30,7 @@ public class JsonGenerator {
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
-    public JSONObject generateSimpleGblTable(String d1, String d2) {
+    public JSONObject generateSimpleGblTable(String d1, String d2, String[] selectedZonesIds) {
 
         this.date1 = (d1 == null) ? format.format(new Date()) : d1;
         this.date2 = (d2 == null) ? format.format(new Date()) : d2;
