@@ -22,7 +22,7 @@ div.marquee > div.marquee-text {
     display:inline;
     width:auto;
 }
-#setting,#zoneDropDown{
+#setting{
     cursor: pointer;
     opacity: 0;
 }
