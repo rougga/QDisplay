@@ -16,6 +16,7 @@
         <link href="/<%= CfgHandler.APP%>/css/default.css" rel="stylesheet" type="text/css"/>
         <script src="/<%= CfgHandler.APP%>/js/bootstrap.bundle.min.js"></script>
         <script src="/<%= CfgHandler.APP%>/js/settings.js"></script>
+        <script src="/<%= CfgHandler.APP%>/js/display/functions.js"></script>
         <script src="/<%= CfgHandler.APP%>/js/setting/tables.js"></script>
     </head>
     <body class="bg-black">

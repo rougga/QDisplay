@@ -155,70 +155,72 @@ function getNbaName() {
 function getMoyattName() {
     names.moyattName = localStorage.getItem('moyattName');
     if (names.moyattName == undefined) {
-        names.moyattName = "Mo. Att";
+        names.moyattName = "Mo. At";
     }
     return names.moyattName;
 }
 function getMoytName() {
     names.moytName = localStorage.getItem('moytName');
     if (names.moytName == undefined) {
-        names.moytName = "Mo. Trai";
+        names.moytName = "Mo. Tr";
     }
     return names.moytName;
 }
+
+//sizes
 function getSiteSize() {
     names.siteSize = localStorage.getItem('siteSize');
     if (names.siteSize == undefined) {
-        names.siteSize = "Site";
+        names.siteSize = "25";
     }
     return names.siteSize;
 }
 function getServiceSize() {
     names.serviceSize = localStorage.getItem('serviceSize');
     if (names.serviceSize == undefined) {
-        names.serviceSize = "Service";
+        names.serviceSize = "15";
     }
     return names.serviceSize;
 }
 function getNbeSize() {
     names.nbeSize = localStorage.getItem('nbeSize');
     if (names.nbeSize == undefined) {
-        names.nbeSize = "Nb. É";
+        names.nbeSize = "10";
     }
     return names.nbeSize;
 }
 function getNbattSize() {
     names.nbattSize = localStorage.getItem('nbattSize');
     if (names.nbattSize == undefined) {
-        names.nbattSize = "Nb. Att";
+        names.nbattSize = "10";
     }
     return names.nbattSize;
 }
 function getNbtSize() {
     names.nbtSize = localStorage.getItem('nbtSize');
     if (names.nbtSize == undefined) {
-        names.nbtSize = "Nb. T";
+        names.nbtSize = "10";
     }
     return names.nbtSize;
 }
 function getNbaSize() {
     names.nbaSize = localStorage.getItem('nbaSize');
     if (names.nbaSize == undefined) {
-        names.nbaSize = "Nb. A";
+        names.nbaSize = "10";
     }
     return names.nbaSize;
 }
 function getMoyattSize() {
     names.moyattSize = localStorage.getItem('moyattSize');
     if (names.moyattSize == undefined) {
-        names.moyattSize = "Mo. Att";
+        names.moyattSize = "10";
     }
     return names.moyattSize;
 }
 function getMoytSize() {
     names.moytSize = localStorage.getItem('moytSize');
     if (names.moytSize == undefined) {
-        names.moytSize = "Mo. Trai";
+        names.moytSize = "10";
     }
     return names.moytSize;
 }
@@ -277,7 +279,7 @@ var updateTables = function (selectedZones) {
                                 + "<div class=' p-0 m-0'>"
                                 + "<table class='table text-white  " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element m-0'>"
                                 + "<thead>"
-                                + "<tr>"
+                                + "<tr class='text-center'>"
                                 + "<th scope='col' class='siteColumn'>" + getSiteName() + "</th>"
                                 + "<th scope='col' class='serviceColumn'>" + getServiceName() + "</th>"
                                 + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>" //0
@@ -294,7 +296,7 @@ var updateTables = function (selectedZones) {
                             for (var j = 0; j < data.result[i].table.length; j++) {
 
                                 if (j === 0) {
-                                    var row = "<tr>"
+                                    var row = "<tr class='text-center'>"
                                             + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
                                             + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
                                             + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
@@ -306,7 +308,7 @@ var updateTables = function (selectedZones) {
                                             + "</tr>";
                                     main += row;
                                 } else {
-                                    var row = "<tr>"
+                                    var row = "<tr class='text-center'>"
                                             + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
                                             + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
                                             + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
@@ -320,7 +322,7 @@ var updateTables = function (selectedZones) {
 
                             }
                         } else {
-                            var row = "<tr>"
+                            var row = "<tr class='text-center'>"
                                     + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
                                     + "<td class='serviceColumn'>--</td>"
                                     + "<td class='nbeColumn'>--</td>"
@@ -355,7 +357,7 @@ var updateTables = function (selectedZones) {
                                 + "<div class=' p-0 m-0'>"
                                 + "<table class='table m-0 text-white " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element '>"
                                 + "<thead>"
-                                + "<tr>"
+                                + "<tr class='text-center'>"
                                 + "<th scope='col' class='siteColumn'>" + getSiteName() + "</th>"
                                 + "<th scope='col' class='serviceColumn'>" + getServiceName() + "</th>"
                                 + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>" //0
@@ -372,7 +374,7 @@ var updateTables = function (selectedZones) {
                             for (var j = 0; j < data.result[i].table.length; j++) {
 
                                 if (j === 0) {
-                                    var row = "<tr>"
+                                    var row = "<tr class='text-center'>"
                                             + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
                                             + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
                                             + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
@@ -384,7 +386,7 @@ var updateTables = function (selectedZones) {
                                             + "</tr>";
                                     main += row;
                                 } else {
-                                    var row = "<tr>"
+                                    var row = "<tr class='text-center'>"
                                             + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
                                             + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
                                             + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
@@ -398,7 +400,7 @@ var updateTables = function (selectedZones) {
 
                             }
                         } else {
-                            var row = "<tr>"
+                            var row = "<tr class='text-center'>"
                                     + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
                                     + "<td class='serviceColumn'>--</td>"
                                     + "<td class='nbeColumn'>--</td>"
@@ -471,7 +473,7 @@ var updateTables = function (selectedZones) {
             }
             );
         } else {
-            console.log("err");
+            console.log("ERROR: NO ZONE SELECTED.");
         }
 
 
@@ -500,7 +502,8 @@ var updateTheme = function () {
             $(".table-element").addClass("table-bordered table-striped table-light");
             $(".table-element thead").addClass("bg-info text-center align-middle");
             $(".table-element thead").removeClass("table-borderless");
-            $(".table-element tbody tr").addClass("border-dark text-left  text-dark");
+            $(".table-element tbody tr").addClass("border-dark text-dark");
+            $(".table-element tbody td").addClass("border-dark   text-dark");
             $(".table-element tbody tr th").addClass("border-dark text-center align-middle text-dark");
             break;
         default:
@@ -527,20 +530,22 @@ var updateZoneDropdown = function () {
 // Zone CheckBox
 var checkZoneCheckBoxes = function () {
     var selectedZones = JSON.parse(localStorage.getItem("selectedZones"));
-    var selectedZonesIds = selectedZones.selectedZonesIds;
-    updateSelectedZonesDisplay(selectedZones);
-    if (selectedZonesIds) {
-        $(".check").prop("checked", false);
-        for (var i = 0; i < selectedZonesIds.length; i++) {
-            $(".check[value='" + selectedZonesIds[i] + "']").prop("checked", true);
+    if (selectedZones) {
+        var selectedZonesIds = selectedZones.selectedZonesIds;
+        updateSelectedZonesDisplay(selectedZones);
+        if (selectedZonesIds) {
+            $(".check").prop("checked", false);
+            for (var i = 0; i < selectedZonesIds.length; i++) {
+                $(".check[value='" + selectedZonesIds[i] + "']").prop("checked", true);
+            }
+        } else {
+            $(".check").prop("checked", false);
         }
-    } else {
-        $(".check").prop("checked", false);
-    }
-    if (selectedZonesIds.length === ($(".zone").length - 1)) {
-        $("#selectAll").prop("checked", true);
-    } else {
-        $("#selectAll").prop("checked", false);
+        if (selectedZonesIds.length === ($(".zone").length - 1)) {
+            $("#selectAll").prop("checked", true);
+        } else {
+            $("#selectAll").prop("checked", false);
+        }
     }
 
 };

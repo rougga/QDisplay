@@ -49,47 +49,27 @@ $(document).ready(function () {
         alert("Changement sauvgardé !!");
     });
 
+    //page load
+    
+    $("#siteName").val(getSiteName());
+    $("#serviceName").val(getServiceName());
+    $("#nbeName").val(getNbeName());
+    $("#nbattName").val(getNbattName);
+    $("#nbtName").val(getNbtName());
+    $("#nbaName").val(getNbaName());
+    $("#moyattName").val(getMoyattName());
+    $("#moytName").val(getMoytName());
 
-    names.siteName = localStorage.getItem('siteName');
-    names.serviceName = localStorage.getItem('serviceName');
-    names.nbeName = localStorage.getItem('nbeName');
-    names.nbattName = localStorage.getItem('nbattName');
-    names.nbtName = localStorage.getItem('nbtName');
-    names.nbaName = localStorage.getItem('nbaName');
-    names.moyattName = localStorage.getItem('moyattName');
-    names.moytName = localStorage.getItem('moytName');
-
-    names.siteSize = localStorage.getItem('siteSize');
-    names.serviceSize = localStorage.getItem('serviceSize');
-    names.nbeSize = localStorage.getItem('nbeSize');
-    names.nbattSize = localStorage.getItem('nbattSize');
-    names.nbtSize = localStorage.getItem('nbtSize');
-    names.nbaSize = localStorage.getItem('nbaSize');
-    names.moyattSize = localStorage.getItem('moyattSize');
-    names.moytSize = localStorage.getItem('moytSize');
-
-    names.tableBorderStatus = localStorage.getItem('tableBorderStatus');
-    names.tableResposiveStatus = localStorage.getItem('tableResposiveStatus');
-
-    $("#siteName").val(names.siteName);
-    $("#serviceName").val(names.serviceName);
-    $("#nbeName").val(names.nbeName);
-    $("#nbattName").val(names.nbattName);
-    $("#nbtName").val(names.nbtName);
-    $("#nbaName").val(names.nbaName);
-    $("#moyattName").val(names.moyattName);
-    $("#moytName").val(names.moytName);
-
-    $("#siteSize").val(names.siteSize);
-    $("#serviceSize").val(names.serviceSize);
-    $("#nbeSize").val(names.nbeSize);
-    $("#nbattSize").val(names.nbattSize);
-    $("#nbtSize").val(names.nbtSize);
-    $("#nbaSize").val(names.nbaSize);
-    $("#moyattSize").val(names.moyattSize);
-    $("#moytSize").val(names.moytSize);
+    $("#siteSize").val(getSiteSize());
+    $("#serviceSize").val(getServiceSize());
+    $("#nbeSize").val(getNbeSize());
+    $("#nbattSize").val(getNbattSize());
+    $("#nbtSize").val(getNbtSize());
+    $("#nbaSize").val(getNbaSize());
+    $("#moyattSize").val(getMoyattSize());
+    $("#moytSize").val(getMoytSize());
     
     
-    $('#tableBorderStatus').attr("checked", (names.tableBorderStatus === "table-bordred"));
-    $('#tableResposiveStatus').attr("checked", (names.tableResposiveStatus === "table-resp"));
+    $('#tableBorderStatus').attr("checked", (getTableBorderStatus() === "table-bordred"));
+    $('#tableResposiveStatus').attr("checked", (getTableResposiveStatus() === "table-resp"));
 });
