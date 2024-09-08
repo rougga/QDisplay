@@ -2,6 +2,10 @@
     font-family:'digital-clock-font';
     src: url('../font/digital-7.ttf');
 }
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
 .font-digital{
     font-family:'digital-clock-font' !important;
 }
@@ -45,4 +49,7 @@ div.marquee > div.marquee-text {
 .check,#selectAll{
     width: 15px;
     height: 15px;
+}
+.fadeIn{
+    animation: fadeIn 0.5s;
 }

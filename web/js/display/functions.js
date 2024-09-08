@@ -1,6 +1,6 @@
 let config = {};
 let names = {};
-var $grid;
+let $grid;
 const capitalize = (s) => {
     if (typeof s !== 'string')
         return '';
@@ -248,7 +248,7 @@ function getTableResposiveStatus() {
 
 
 // UPDATERS
-var updateWeather = function () {
+let updateWeather = function () {
     if (isWeatherEnabled()) {
         $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=" + getLocation() + "&units=metric&lang=fr&APPID=37e60bb4041c616c61e2f0534aec11a9", function (data) {
             $("#forcast").html(" - " + Math.round(data.main.temp) + "<small>°C</small> - " + data.name + " - " + '<img class="weatherIcon" src="https://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png" alt=""/>' + capitalize(data.weather[0].description));
@@ -258,9 +258,9 @@ var updateWeather = function () {
         $("#forcast").html("");
     }
 };
-var updateTables = function (selectedZones) {
-    var obj2 = getElementSize();
-    var obj3 = getMarginStatus();
+let updateTables = function (selectedZones) {
+    let obj2 = getElementSize();
+    let obj3 = getMarginStatus();
     if (obj2 == undefined || obj3 == undefined) {
         alert("la taille des éléments n'est pas sélectionnée...");
         obj2 = "30";
@@ -269,13 +269,17 @@ var updateTables = function (selectedZones) {
         if (selectedZones) {
             $.getJSON("./api/gettables", {selectedZonesIds: selectedZones.selectedZonesIds}, function (data) {
                 $("#main").html("");
-                for (var i = 0; i < data.result.length; i++) {
-                    var isOnline = data.result[i].isOnline;
-                    var rowspan = data.result[i].table.length;
+
+                //when table is full
+                for (let i = 0; i < data.result.length; i++) {
+                    let isOnline = data.result[i].isOnline;
+                    let rowspan = data.result[i].table.length;
+                    let site = data.result[i].site;
+                    let zone = data.result[i].zone;
+                    let id_zone = data.result[i].id_zone;
                     if (data.result[i].table.length > 0) {
-                        var site = data.result[i].site;
-//                        var main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
-                        var main = "<div class=' w-50 p-1 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
+//                        let main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
+                        let main = "<div class=' w-50 p-1 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
                                 + "<div class=' p-0 m-0'>"
                                 + "<table class='table text-white  " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element m-0'>"
                                 + "<thead>"
@@ -292,49 +296,33 @@ var updateTables = function (selectedZones) {
                                 + "</thead>"
                                 + "<tbody>"
                                 ;
-                        if (data.result[i].table.length > 0) {
-                            for (var j = 0; j < data.result[i].table.length; j++) {
-
-                                if (j === 0) {
-                                    var row = "<tr class='text-center'>"
-                                            + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
-                                            + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
-                                            + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
-                                            + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
-                                            + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
-                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
-                                            + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
-                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
-                                            + "</tr>";
-                                    main += row;
-                                } else {
-                                    var row = "<tr class='text-center'>"
-                                            + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
-                                            + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
-                                            + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
-                                            + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
-                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
-                                            + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
-                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
-                                            + "</tr>";
-                                    main += row;
-                                }
-
+                        for (let j = 0; j < data.result[i].table.length; j++) {
+                            if (j === 0) {
+                                let row = "<tr class='text-center'>"
+                                        + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "<br/><span class='badge badge-pill badge-dark small zoneName' data-id='"+id_zone+"'>" + zone + "</span></th>"
+                                        + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
+                                        + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
+                                        + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
+                                        + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
+                                        + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
+                                        + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
+                                        + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
+                                        + "</tr>";
+                                main += row;
+                            } else {
+                                let row = "<tr class='text-center'>"
+                                        + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
+                                        + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
+                                        + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
+                                        + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
+                                        + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
+                                        + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
+                                        + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
+                                        + "</tr>";
+                                main += row;
                             }
-                        } else {
-                            var row = "<tr class='text-center'>"
-                                    + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
-                                    + "<td class='serviceColumn'>--</td>"
-                                    + "<td class='nbeColumn'>--</td>"
-                                    + "<td class='nbattColumn'>--</td>"
-                                    + "<td class='moyattColumn'>--</td>"
-                                    + "<td class='nbtColumn'>--</td>"
-                                    + "<td class='moytColumn'>--</td>"
-                                    + "<td class='nbaColumn'>--</td>"
-                                    + "</tr>";
-                            main += row;
-                        }
 
+                        }
                         main += "</tbody>"
                                 + "</table>"
                                 + "</div>"
@@ -344,16 +332,9 @@ var updateTables = function (selectedZones) {
                         $grid.append($main).masonry('appended', $main);
                         //$("#main").append(main);
                         $("." + i + " table tbody th:first").attr("rowspan", rowspan);
-                    }
-                }
-
-                for (var i = 0; i < data.result.length; i++) {
-                    var isOnline = data.result[i].isOnline;
-                    var rowspan = data.result[i].table.length;
-                    if (data.result[i].table.length <= 0) {
-                        var site = data.result[i].site;
-//                        var main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm  empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
-                        var main = "<div class=' w-50 site m-0 p-1 " + i + " table-responsive-sm  empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
+                    } else {
+                        //empty Table
+                        let main = "<div class=' w-50 site m-0 p-1 " + i + " table-responsive-sm  empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
                                 + "<div class=' p-0 m-0'>"
                                 + "<table class='table m-0 text-white " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element '>"
                                 + "<thead>"
@@ -369,51 +350,17 @@ var updateTables = function (selectedZones) {
                                 + "</tr>"
                                 + "</thead>"
                                 + "<tbody>"
-                                ;
-                        if (data.result[i].table.length > 0) {
-                            for (var j = 0; j < data.result[i].table.length; j++) {
-
-                                if (j === 0) {
-                                    var row = "<tr class='text-center'>"
-                                            + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
-                                            + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
-                                            + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
-                                            + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
-                                            + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
-                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
-                                            + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
-                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
-                                            + "</tr>";
-                                    main += row;
-                                } else {
-                                    var row = "<tr class='text-center'>"
-                                            + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
-                                            + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
-                                            + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
-                                            + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
-                                            + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
-                                            + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
-                                            + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
-                                            + "</tr>";
-                                    main += row;
-                                }
-
-                            }
-                        } else {
-                            var row = "<tr class='text-center'>"
-                                    + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "</th>"
-                                    + "<td class='serviceColumn'>--</td>"
-                                    + "<td class='nbeColumn'>--</td>"
-                                    + "<td class='nbattColumn'>--</td>"
-                                    + "<td class='moyattColumn'>--</td>"
-                                    + "<td class='nbtColumn'>--</td>"
-                                    + "<td class='moytColumn'>--</td>"
-                                    + "<td class='nbaColumn'>--</td>"
-                                    + "</tr>";
-                            main += row;
-                        }
-
-                        main += "</tbody>"
+                                + "<tr class='text-center'>"
+                                + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "<br/><span class='badge badge-pill badge-dark small zoneName' data-id='"+id_zone+"'>" + zone + "</span></th>"
+                                + "<td class='serviceColumn'>--</td>"
+                                + "<td class='nbeColumn'>--</td>"
+                                + "<td class='nbattColumn'>--</td>"
+                                + "<td class='moyattColumn'>--</td>"
+                                + "<td class='nbtColumn'>--</td>"
+                                + "<td class='moytColumn'>--</td>"
+                                + "<td class='nbaColumn'>--</td>"
+                                + "</tr>"
+                                + "</tbody>"
                                 + "</table>"
                                 + "</div>"
                                 + "</div>";
@@ -440,11 +387,13 @@ var updateTables = function (selectedZones) {
                     $("tr").removeClass("p-0").removeClass("m-0");
                     $("table").removeClass("p-0").removeClass("m-0");
                     $("tbody *").removeClass("p-0").removeClass("m-0");
+                    $("th").removeClass("p-0").removeClass("m-0");
                     $("td").removeClass("p-0").removeClass("m-0");
                 } else {
                     $("tr").addClass("p-0").addClass("m-0");
                     $("table").addClass("p-0").addClass("m-0");
-                    $("tbody *").addClass("p-0").addClass("m-0");
+                    $("tbody ").addClass("p-0").addClass("m-0");
+                   // $("th").addClass("p-0").addClass("m-0");
                     $("td").addClass("p-0").addClass("m-0");
                 }
                 //column sizes
@@ -481,14 +430,14 @@ var updateTables = function (selectedZones) {
     }
 
 };
-var updateTime = function () {
+let updateTime = function () {
     $("#clock").html(moment().format('HH:mm -'));
     $("#date").html(moment().format(' dddd DD MMM YYYY'));
 };
-var updateTicker = function () {
+let updateTicker = function () {
     $("#footerText").html(getRollingText());
 };
-var updateTheme = function () {
+let updateTheme = function () {
     let mode = getTheme();
     $("#footerText").css("color", getRollingTextColor());
     $("#title").css("font-size", getTitleSize() + "px");
@@ -510,7 +459,7 @@ var updateTheme = function () {
 
     }
 };
-var updateZoneDropdown = function () {
+let updateZoneDropdown = function () {
     $.getJSON("./api/getzones", function (data) {
         if (data.result) {
             $(".azone").remove();
@@ -528,14 +477,14 @@ var updateZoneDropdown = function () {
 };
 
 // Zone CheckBox
-var checkZoneCheckBoxes = function () {
-    var selectedZones = JSON.parse(localStorage.getItem("selectedZones"));
+let checkZoneCheckBoxes = function () {
+    let selectedZones = JSON.parse(localStorage.getItem("selectedZones"));
     if (selectedZones) {
-        var selectedZonesIds = selectedZones.selectedZonesIds;
+        let selectedZonesIds = selectedZones.selectedZonesIds;
         updateSelectedZonesDisplay(selectedZones);
         if (selectedZonesIds) {
             $(".check").prop("checked", false);
-            for (var i = 0; i < selectedZonesIds.length; i++) {
+            for (let i = 0; i < selectedZonesIds.length; i++) {
                 $(".check[value='" + selectedZonesIds[i] + "']").prop("checked", true);
             }
         } else {
@@ -549,15 +498,15 @@ var checkZoneCheckBoxes = function () {
     }
 
 };
-var getCheckedZones = function () {
-    var selectedZones = {};
-    var searchIDs = $(".check:checked").map(function () {
+let getCheckedZones = function () {
+    let selectedZones = {};
+    let searchIDs = $(".check:checked").map(function () {
         if ($(this).val() !== "on") {
             return $(this).val();
         }
 
     }).get();
-    var selectedZonesNames = $(".check:checked").map(function () {
+    let selectedZonesNames = $(".check:checked").map(function () {
         if ($(this).val() !== "on") {
             return $(this).attr("data-name");
         }
@@ -567,10 +516,10 @@ var getCheckedZones = function () {
     selectedZones.selectedZonesNames = selectedZonesNames;
     return selectedZones;
 };
-var getCheckedZonesFromLocalStorage = function () {
+let getCheckedZonesFromLocalStorage = function () {
     return   JSON.parse(localStorage.getItem("selectedZones"));
 };
-var updateSelectedZonesDisplay = function (selectedZones) {
+let updateSelectedZonesDisplay = function (selectedZones) {
     if (selectedZones.selectedZonesNames.length > 0) {
         $("#selectedZonesDisplay").html("");
         selectedZones.selectedZonesNames.forEach(function (entry) {
@@ -581,7 +530,7 @@ var updateSelectedZonesDisplay = function (selectedZones) {
         $("#selectedZonesDisplay").html("-");
     }
 };
-var updateZones = function () {
+let updateZones = function () {
     let selectedZones = getCheckedZones();
     localStorage.setItem("selectedZones", JSON.stringify(selectedZones));
     updateSelectedZonesDisplay(selectedZones);

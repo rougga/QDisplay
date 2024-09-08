@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ma.rougga.nst.controller.central.ZoneController;
 import ma.rougga.nst.modal.central.Zone;
 import main.controller.AgenceController;
 import main.controller.CibleController;
 import main.controller.ServiceController;
+import main.controller.ZoneController;
 import main.modal.Agence;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -37,6 +37,7 @@ public class JsonGenerator {
         AgenceController ac = new AgenceController();
         CibleController cc = new CibleController();
         ServiceController sc = new ServiceController();
+        ZoneController zc = new ZoneController();
         JSONObject all = new JSONObject();
         JSONArray result = new JSONArray();
         if (selectedZonesIds != null) {
@@ -45,13 +46,15 @@ public class JsonGenerator {
                 if (agences != null) {
                     for (int i = 0; i < agences.size(); i++) {
                         JSONObject site = new JSONObject();
+                        Zone z = zc.getZoneById(UUID.fromString(selectedZonesId));
+                        site.put("zone", z == null ? "--" : z.getName());
+                        site.put("id_zone", z == null ? "--" : z.getId().toString());
                         site.put("site", agences.get(i).getName());
                         try {
                             Agence a = agences.get(i);
 
                             JSONArray table2 = new JSONArray();
                             PgConnection con = new PgConnection();
-
                             String dateCon = " and to_date(to_char(t2.ticket_time,'YYYY-MM-DD'),'YYYY-MM-DD')  BETWEEN TO_DATE('" + date1 + "','YYYY-MM-DD') AND TO_DATE('" + date2 + "','YYYY-MM-DD') and t2.db_id='" + a.getId() + "'";
 
                             String SQL = "SELECT "
@@ -205,7 +208,7 @@ public class JsonGenerator {
         JSONObject all = new JSONObject();
         JSONArray result = new JSONArray();
         try {
-            ZoneController zc = new ZoneController(new PgConnection().getStatement());
+            ma.rougga.nst.controller.central.ZoneController zc = new ma.rougga.nst.controller.central.ZoneController(new PgConnection().getStatement());
             List<Zone> zones = zc.getAllZones();
 
             if (zones != null) {

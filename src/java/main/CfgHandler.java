@@ -22,7 +22,7 @@ public class CfgHandler {
     
     //MetaData
     public  static final String APP = "QDisplay";
-    public static final String VERSION = "3.3-LITE";
+    public static final String VERSION = "3.4-LITE";
     public static final String COMPANY = "ROUGGA";
     public static final String CLIENT = "NST-Maroc";
     public static final String YEAR = "2024";

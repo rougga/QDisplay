@@ -17,8 +17,35 @@
         <script src="/<%= CfgHandler.APP%>/js/bootstrap.bundle.min.js"></script>
         <script src="/<%= CfgHandler.APP%>/js/settings.js"></script>
         <script src="/<%= CfgHandler.APP%>/js/setting/affichage.js"></script>
+        <style>
+            .nav-item:hover{
+                opacity: 0.9;
+            }
+            .nav-link{
+                    color: black;
+            }
+            .nav-item{
+                background-color: #ECDBBA;
+            }
+            .nav-item-active{
+                background-color: #C84B31;
+                .nav-link{
+                    color: white;
+                }
+            }
+            .nav-item-active.nav-link{
+                    color: #ECDBBA;
+            }
+            .main{
+                background-color: #2D4263;
+            }
+            .bg-dark2{
+                background-color: #191919;
+            }
+            
+        </style>
     </head>
-    <body class="bg-black">
+    <body class="bg-dark2">
         <div class="container-fluid bg-black vh-full">
 
             <div class="p-3">
@@ -27,19 +54,25 @@
             </div>
             <div class="container font-weight-bold text-eco">
                 <nav>
-                    <ul class="nav nav-tabs justify-content-center">
-                        <li class="nav-item">
-                            <a class="nav-link active font-weight-bold" href="/<%= CfgHandler.APP%>/setting/affichage.jsp">Générale</a>
+                    <ul class="nav nav-pills nav-fill">
+                        <li class="nav-item border border-dark  nav-item-active rounded-top">
+                            <a class="nav-link  font-weight-bold" href="/<%= CfgHandler.APP%>/setting/affichage.jsp">
+                                <img src="../img/icon/settings-24-black.png" class="float-left"/> GÉNÉRALE
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/tables.jsp">Tables</a>
+                        <li class="nav-item border border-dark rounded-top">
+                            <a class="nav-link" href="/<%= CfgHandler.APP%>/setting/tables.jsp">
+                                <img src="../img/icon/rename-24-black.png" class="float-left"/> TABLES
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="/<%= CfgHandler.APP%>/">Aller à l'ecran</a>
+                        <li class="nav-item border border-dark rounded-top">
+                           <a class="nav-link " href="/<%= CfgHandler.APP%>/">
+                                ALLER À L'ECRAN <img src="../img/icon/arrow-right-24.png" class="float-right"/>
+                            </a>
                         </li>
                     </ul>
                 </nav>
-                <div class="bg-dark">
+                <div class="main">
                     <form>
                         <div class="modal-body">
                             <div class="form-group">
@@ -129,7 +162,6 @@
                                 <label for="refreshTime">7 - Temps de rafraîchissement (seconde):</label>
                                 <input type="number" class="form-control" id="refreshTime" min="0" max="300">
                             </div>
-                            <hr />
 
                         </div>
                         <div class="modal-footer">
@@ -138,7 +170,7 @@
                     </form>
                 </div>
             </div>
-            <%@include file="../addon/footer.jsp" %>
+<%@include file="../addon/footer.jsp" %>
         </div>
     </body>
 </html>
