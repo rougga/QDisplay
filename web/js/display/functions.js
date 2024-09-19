@@ -241,7 +241,7 @@ function getTableBorderStatus() {
 function getTableResposiveStatus() {
     names.tableResposiveStatus = localStorage.getItem('tableResposiveStatus');
     if (names.tableResposiveStatus == undefined) {
-        names.tableResposiveStatus = "table-resp";
+        names.tableResposiveStatus = "";
     }
     return names.tableResposiveStatus;
 }
@@ -279,7 +279,7 @@ let updateTables = function (selectedZones) {
                     let id_zone = data.result[i].id_zone;
                     if (data.result[i].table.length > 0) {
 //                        let main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
-                        let main = "<div class=' w-50 p-1 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
+                        let main = "<div class=' w-50 p-1 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "' data-id_zone='" + id_zone + "'>"
                                 + "<div class=' p-0 m-0'>"
                                 + "<table class='table text-white  " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element m-0'>"
                                 + "<thead>"
@@ -299,7 +299,7 @@ let updateTables = function (selectedZones) {
                         for (let j = 0; j < data.result[i].table.length; j++) {
                             if (j === 0) {
                                 let row = "<tr class='text-center'>"
-                                        + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "<br/><span class='badge badge-pill badge-dark small zoneName' data-id='"+id_zone+"'>" + zone + "</span></th>"
+                                        + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "<br/><span class='badge badge-pill badge-dark small zoneName' data-id='" + id_zone + "'>" + zone + "</span></th>"
                                         + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
                                         + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
                                         + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
@@ -334,7 +334,7 @@ let updateTables = function (selectedZones) {
                         $("." + i + " table tbody th:first").attr("rowspan", rowspan);
                     } else {
                         //empty Table
-                        let main = "<div class=' w-50 site m-0 p-1 " + i + " table-responsive-sm  empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
+                        let main = "<div class=' w-50 site m-0 p-1 " + i + " table-responsive-sm  empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "' data-id_zone='" + id_zone + "'>"
                                 + "<div class=' p-0 m-0'>"
                                 + "<table class='table m-0 text-white " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element '>"
                                 + "<thead>"
@@ -351,7 +351,7 @@ let updateTables = function (selectedZones) {
                                 + "</thead>"
                                 + "<tbody>"
                                 + "<tr class='text-center'>"
-                                + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "<br/><span class='badge badge-pill badge-dark small zoneName' data-id='"+id_zone+"'>" + zone + "</span></th>"
+                                + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "<br/><span class='badge badge-pill badge-dark small zoneName' data-id='" + id_zone + "'>" + zone + "</span></th>"
                                 + "<td class='serviceColumn'>--</td>"
                                 + "<td class='nbeColumn'>--</td>"
                                 + "<td class='nbattColumn'>--</td>"
@@ -370,6 +370,8 @@ let updateTables = function (selectedZones) {
                         //$("#main").append(main);
                         $("." + i + " table tbody th:first").attr("rowspan", rowspan);
                     }
+
+
                 }
 
                 //changine size based on number of tables
@@ -393,7 +395,7 @@ let updateTables = function (selectedZones) {
                     $("tr").addClass("p-0").addClass("m-0");
                     $("table").addClass("p-0").addClass("m-0");
                     $("tbody ").addClass("p-0").addClass("m-0");
-                   // $("th").addClass("p-0").addClass("m-0");
+                    // $("th").addClass("p-0").addClass("m-0");
                     $("td").addClass("p-0").addClass("m-0");
                 }
                 //column sizes
@@ -417,7 +419,8 @@ let updateTables = function (selectedZones) {
 
                 $grid.masonry('reloadItems');
                 $grid.masonry();
-
+                
+                reorderTables();
 
             }
             );
@@ -475,7 +478,10 @@ let updateZoneDropdown = function () {
         checkZoneCheckBoxes();
     });
 };
-
+let reorderTables = function () {
+    let $allTables = $(".site");
+    //console.log($allTables);
+};
 // Zone CheckBox
 let checkZoneCheckBoxes = function () {
     let selectedZones = JSON.parse(localStorage.getItem("selectedZones"));
