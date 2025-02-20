@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>QDisplay</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="./img/favicon-32x32.png">
+        <script src="js/jquery.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/lib/masonry.pkgd.min.js"></script>
+        <script src="js/lib/imagesloaded.pkgd.min.js"></script>
+        <link href="css/display.css" rel="stylesheet" type="text/css"/>
+        <script src="js/moment.min.js"></script>
+        <script src="js/display.js"></script>
+        <script src="js/display/functions.js"></script>
+    </head>
+    <body>
+        <div class="w-100 h-100 row m-0 ">
+            <div class="w-100  align-self-start ">
+                <div class="text-white text-center" id="title">
+                    <div class=' float-left btn-group dropdown m-1' id="zoneDropDown">
+                        <button type='button' class='btn btn-default font-weight-bold dropdown-toggle border-white text-white' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                            ZONE
+                        </button>
+                        <div class='dropdown-menu fadeIn' id='zones'>
+                            <span class='dropdown-item font-weight-bold zone'>
+                                <input type='checkbox'  class='mr-1 form-check-input checkAll' id='selectAll'><span id='textSelect'><u>Toutes les zones.</u></span>
+                            </span>
+                        </div>
+                    </div>
+                    <b id="clock" class="font-digital">--:-- </b>
+                    <small id="date">Lundi 21 Dec 2020 </small>
+                    <span id="forcast">  </span>
+                    <a class="text-white float-right mr-2 fadeIn" id="setting" href="./setting/affichage.jsp"><img src="img/icon/setting.png" alt=""/></a>
+                    <p class="text-center text-white h6 m-0 p-0" id="selectedZonesDisplay">
+                    -
+                    </p>
+                </div>
+            </div>
+            <div class="w-100 " id="main" >
+
+            </div>
+            <div class="w-100 align-self-end marquee">
+                <h3 class=" border-top border-white mt-1 marquee-text" id="footerText">
+                </h3>
+            </div>
+        </div>
+    </body>
+</html>
