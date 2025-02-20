@@ -1,8 +1,4 @@
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="main.modal.Agence"%>
-<%@page import="java.util.List"%>
-<%@page import="main.controller.AgenceController"%>
-<%@page import="main.CfgHandler"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -202,6 +198,7 @@
                 </div>
                 </form>
             </div>
+        </div>
         </div>
                         <%@include file="../addon/footer.jsp" %>
     </div>

@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="QDisplay" options="-endorseddirs C:\Users\bouga\Documents\GitHub\QDisplay\target/endorsed" />
+      <module name="QDisplay" options="-endorseddirs C:\Users\cltat\Desktop\ROUGGA\QDisplay\target/endorsed" />
     </option>
   </component>
 </project>
