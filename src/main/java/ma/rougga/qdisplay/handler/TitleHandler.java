@@ -1,4 +1,4 @@
-package main.handler;
+package ma.rougga.qdisplay.handler;
 
 import java.io.File;
 import java.util.Objects;

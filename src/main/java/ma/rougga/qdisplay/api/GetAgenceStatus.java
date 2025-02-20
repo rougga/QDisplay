@@ -1,4 +1,4 @@
-package main.api;
+package ma.rougga.qdisplay.api;
 
 import java.io.PrintWriter;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package main.servlets;
+package ma.rougga.qdisplay.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;

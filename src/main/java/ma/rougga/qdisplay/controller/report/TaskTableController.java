@@ -1,5 +1,5 @@
 
-package main.controller.report;
+package ma.rougga.qdisplay.controller.report;
 
 public class TaskTableController {
 

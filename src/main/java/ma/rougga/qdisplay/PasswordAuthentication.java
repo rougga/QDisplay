@@ -1,5 +1,5 @@
 
-package main;
+package ma.rougga.qdisplay;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

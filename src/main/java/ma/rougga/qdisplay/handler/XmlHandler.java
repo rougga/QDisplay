@@ -1,5 +1,5 @@
 
-package main.handler;
+package ma.rougga.qdisplay.handler;
 
 public class XmlHandler {
     

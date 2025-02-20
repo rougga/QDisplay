@@ -1,4 +1,4 @@
-package main;
+package ma.rougga.qdisplay;
 
 import java.sql.Statement;
 import java.sql.Connection;

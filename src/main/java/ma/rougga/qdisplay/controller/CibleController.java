@@ -1,4 +1,4 @@
-package main.controller;
+package ma.rougga.qdisplay.controller;
 
 import java.io.BufferedInputStream;
 import java.io.File;

@@ -1,4 +1,4 @@
-package main;
+package ma.rougga.qdisplay;
 
 import java.io.IOException;
 import java.net.Socket;

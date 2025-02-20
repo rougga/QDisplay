@@ -1,4 +1,4 @@
-package main.controller.report;
+package ma.rougga.qdisplay.controller.report;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

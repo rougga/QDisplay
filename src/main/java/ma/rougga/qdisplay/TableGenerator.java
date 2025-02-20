@@ -1,4 +1,4 @@
-package main;
+package ma.rougga.qdisplay;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

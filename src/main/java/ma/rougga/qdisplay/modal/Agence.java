@@ -1,5 +1,5 @@
 
-package main.modal;
+package ma.rougga.qdisplay.modal;
 
 import java.util.UUID;
 

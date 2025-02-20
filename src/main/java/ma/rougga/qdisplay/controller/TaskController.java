@@ -1,4 +1,4 @@
-package main.controller;
+package ma.rougga.qdisplay.controller;
 
 import ma.rougga.nst.controller.*;
 import java.sql.Connection;

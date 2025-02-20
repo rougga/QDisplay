@@ -1,5 +1,5 @@
 
-package main.api;
+package ma.rougga.qdisplay.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;

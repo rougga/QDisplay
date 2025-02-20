@@ -1,4 +1,4 @@
-package main;
+package ma.rougga.qdisplay;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;

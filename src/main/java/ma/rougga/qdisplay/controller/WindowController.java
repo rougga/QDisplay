@@ -1,4 +1,4 @@
-package main.controller;
+package ma.rougga.qdisplay.controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

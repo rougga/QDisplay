@@ -1,4 +1,4 @@
-package main;
+package ma.rougga.qdisplay;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
