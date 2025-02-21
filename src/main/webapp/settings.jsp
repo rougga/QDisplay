@@ -1,3 +1,4 @@
+<%@page import="ma.rougga.qdisplay.CfgHandler"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

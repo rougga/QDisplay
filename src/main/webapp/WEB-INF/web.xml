@@ -1,59 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-
-
-    <servlet-mapping>
-        <servlet-name>Settings</servlet-name>
-        <url-pattern>/Settings</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetTables</servlet-name>
-        <url-pattern>/api/gettables</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/Login</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Logoff</servlet-name>
-        <url-pattern>/Logoff</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Delete</servlet-name>
-        <url-pattern>/Delete</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Add</servlet-name>
-        <url-pattern>/Add</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Edit</servlet-name>
-        <url-pattern>/Edit</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Print</servlet-name>
-        <url-pattern>/Print</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddDatabase</servlet-name>
-        <url-pattern>/AddDatabase</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteDatabase</servlet-name>
-        <url-pattern>/DeleteDatabase</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetAgences</servlet-name>
-        <url-pattern>/api/getagences</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EditTitles</servlet-name>
-        <url-pattern>/EditTitles</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteCible</servlet-name>
-        <url-pattern>/DeleteCible</url-pattern>
-    </servlet-mapping>
     <error-page>
         <!-- Missing login -->
         <error-code>401</error-code>
@@ -84,13 +30,13 @@
         <error-code>503</error-code>
         <location>/error.jsp</location>
     </error-page>
+    <servlet>
+        <servlet-name>ParAPI</servlet-name>
+        <servlet-class>ma.rougga.qdisplay.api.ParAPI</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>GetAgenceStatus</servlet-name>
-        <url-pattern>/GetAgenceStatus</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetZones</servlet-name>
-        <url-pattern>/api/getzones</url-pattern>
+        <servlet-name>ParAPI</servlet-name>
+        <url-pattern>/api/pars</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
