@@ -1,3 +1,4 @@
+<%@page import="ma.rougga.qdisplay.CfgHandler"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

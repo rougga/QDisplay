@@ -1,5 +1,6 @@
 let config = {};
 let names = {};
+const  APP = "QData";
 let $grid;
 const capitalize = (s) => {
     if (typeof s !== 'string')
@@ -74,6 +75,11 @@ function getTableRefreshTime() {
         config.tableRefreshTime = "30";
     }
     return config.tableRefreshTime;
+}
+function isOnlineTest(agenceId) {
+    $.get("/" + APP + "/GetAgenceStatus", {id: agenceId}, function (data) {
+        return data.status;
+    });
 }
 let getOnlineIcon = function (isOnline) {
     if (isOnline) {
@@ -267,113 +273,69 @@ let updateTables = function (selectedZones) {
         obj3 = "0";
     } else {
         if (selectedZones) {
-            $.getJSON("./api/gettables", {selectedZonesIds: selectedZones.selectedZonesIds}, function (data) {
+            $.getJSON("/" + APP + "/api/gbl", {selectedZonesIds: selectedZones.selectedZonesIds}, function (data) {
                 $("#main").html("");
-
-                //when table is full
-                for (let i = 0; i < data.result.length; i++) {
-                    let isOnline = data.result[i].isOnline;
-                    let rowspan = data.result[i].table.length;
-                    let site = data.result[i].site;
-                    let zone = data.result[i].zone;
-                    let id_zone = data.result[i].id_zone;
-                    if (data.result[i].table.length > 0) {
-//                        let main = "<div class='col-12 col-md-6 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "'>"
-                        let main = "<div class=' w-50 p-1 site m-0 " + i + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.result.length + "' data-id_zone='" + id_zone + "'>"
-                                + "<div class=' p-0 m-0'>"
-                                + "<table class='table text-white  " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element m-0'>"
-                                + "<thead>"
-                                + "<tr class='text-center'>"
-                                + "<th scope='col' class='siteColumn'>" + getSiteName() + "</th>"
-                                + "<th scope='col' class='serviceColumn'>" + getServiceName() + "</th>"
-                                + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>" //0
-                                + "<th scope='col' class='nbattColumn'>" + getNbattName() + "</th>" //14
-                                + "<th scope='col' class='moyattColumn'>" + getMoyattName() + "</th>" //8
-                                + "<th scope='col' class='nbtColumn'>" + getNbtName() + "</th>" //1
-                                + "<th scope='col' class='moytColumn'>" + getMoytName() + "</th>" //11
-                                + "<th scope='col' class='nbaColumn'>" + getNbaName() + "</th>" //2
-                                + "</tr>"
-                                + "</thead>"
-                                + "<tbody>"
-                                ;
-                        for (let j = 0; j < data.result[i].table.length; j++) {
-                            if (j === 0) {
-                                let row = "<tr class='text-center'>"
-                                        + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "<br/><span class='badge badge-pill badge-dark small zoneName' data-id='" + id_zone + "'>" + zone + "</span></th>"
-                                        + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
-                                        + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
-                                        + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
-                                        + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
-                                        + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
-                                        + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
-                                        + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
-                                        + "</tr>";
-                                main += row;
-                            } else {
-                                let row = "<tr class='text-center'>"
-                                        + "<td class='serviceColumn'>" + data.result[i].table[j].service + "</td>"
-                                        + "<td class='nbeColumn'>" + data.result[i].table[j].data[0] + "</td>"
-                                        + "<td class='nbattColumn'>" + data.result[i].table[j].data[14] + "</td>"
-                                        + "<td class='moyattColumn'>" + data.result[i].table[j].data[8] + "</td>"
-                                        + "<td class='nbtColumn'>" + data.result[i].table[j].data[1] + "</td>"
-                                        + "<td class='moytColumn'>" + data.result[i].table[j].data[11] + "</td>"
-                                        + "<td class='nbaColumn'>" + data.result[i].table[j].data[2] + "</td>"
-                                        + "</tr>";
-                                main += row;
-                            }
-
+                data.forEach((agence,index1) => {
+                    let services = agence.services;
+                    let agenceName = agence.agence_name;
+                    let agenceId = agence.id_agence;
+                    let isOnline = isOnlineTest(agenceId);
+                    let rowspan = services.length;
+                    let main = "<div class=' w-50 p-1 site m-0 " + index1 + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.length + "' data-id_zone=''>"
+                            + "<div class=' p-0 m-0'>"
+                            + "<table class='table text-white  " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element m-0'>"
+                            + "<thead>"
+                            + "<tr class='text-center'>"
+                            + "<th scope='col' class='siteColumn text-wrap'>" + getSiteName() + "</th>"
+                            + "<th scope='col' class='serviceColumn'>" + getServiceName() + "</th>"
+                            + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>" //0
+                            + "<th scope='col' class='nbattColumn'>" + getNbattName() + "</th>" //14
+                            + "<th scope='col' class='moyattColumn'>" + getMoyattName() + "</th>" //8
+                            + "<th scope='col' class='nbtColumn'>" + getNbtName() + "</th>" //1
+                            + "<th scope='col' class='moytColumn'>" + getMoytName() + "</th>" //11
+                            + "<th scope='col' class='nbaColumn'>" + getNbaName() + "</th>" //2
+                            + "</tr>"
+                            + "</thead>"
+                            + "<tbody>"
+                            ;
+                    services.forEach((service,index2) => {
+                        if (index2 === 0) {
+                            let row = "<tr class='text-center'>"
+                                    + "<th scope='row' class='text-center align-middle siteColumn text-wrap'>" + getOnlineIcon(isOnline) + agenceName + "</th>"
+                                    + "<td class='serviceColumn'>" + service.serviceName + "</td>"
+                                    + "<td class='nbeColumn'>" + service.nbT + "</td>"
+                                    + "<td class='nbattColumn'>" + service.nbSa + "</td>"
+                                    + "<td class='moyattColumn'>" + service.avgSecA + "</td>"
+                                    + "<td class='nbtColumn'>" + service.nbTt + "</td>"
+                                    + "<td class='moytColumn'>" + service.avgSecT + "</td>"
+                                    + "<td class='nbaColumn'>" + service.nbA + "</td>"
+                                    + "</tr>";
+                            main += row;
+                        } else {
+                            let row = "<tr class='text-center'>"
+                                    + "<td class='serviceColumn'>" + service.serviceName + "</td>"
+                                    + "<td class='nbeColumn'>" + service.nbT + "</td>"
+                                    + "<td class='nbattColumn'>" + service.nbSa + "</td>"
+                                    + "<td class='moyattColumn'>" + service.avgSecA + "</td>"
+                                    + "<td class='nbtColumn'>" + service.nbTt + "</td>"
+                                    + "<td class='moytColumn'>" + service.avgSecT + "</td>"
+                                    + "<td class='nbaColumn'>" + service.nbA + "</td>"
+                                    + "</tr>";
+                            main += row;
                         }
-                        main += "</tbody>"
-                                + "</table>"
-                                + "</div>"
-                                + "</div>";
-                        let $main = $(main);
-                        // add jQuery object
-                        $grid.append($main).masonry('appended', $main);
-                        //$("#main").append(main);
-                        $("." + i + " table tbody th:first").attr("rowspan", rowspan);
-                    } else {
-                        //empty Table
-                        let main = "<div class=' w-50 site m-0 p-1 " + i + " table-responsive-sm  empty' data-rows='" + rowspan + "' data-sites='" + data.result.length + "' data-id_zone='" + id_zone + "'>"
-                                + "<div class=' p-0 m-0'>"
-                                + "<table class='table m-0 text-white " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element '>"
-                                + "<thead>"
-                                + "<tr class='text-center'>"
-                                + "<th scope='col' class='siteColumn'>" + getSiteName() + "</th>"
-                                + "<th scope='col' class='serviceColumn'>" + getServiceName() + "</th>"
-                                + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>" //0
-                                + "<th scope='col' class='nbattColumn'>" + getNbattName() + "</th>" //14
-                                + "<th scope='col' class='moyattColumn'>" + getMoyattName() + "</th>" //8
-                                + "<th scope='col' class='nbtColumn'>" + getNbtName() + "</th>" //1
-                                + "<th scope='col' class='moytColumn'>" + getMoytName() + "</th>" //11
-                                + "<th scope='col' class='nbaColumn'>" + getNbaName() + "</th>" //2
-                                + "</tr>"
-                                + "</thead>"
-                                + "<tbody>"
-                                + "<tr class='text-center'>"
-                                + "<th scope='row' class='text-center align-middle siteColumn'>" + getOnlineIcon(isOnline) + site + "<br/><span class='badge badge-pill badge-dark small zoneName' data-id='" + id_zone + "'>" + zone + "</span></th>"
-                                + "<td class='serviceColumn'>--</td>"
-                                + "<td class='nbeColumn'>--</td>"
-                                + "<td class='nbattColumn'>--</td>"
-                                + "<td class='moyattColumn'>--</td>"
-                                + "<td class='nbtColumn'>--</td>"
-                                + "<td class='moytColumn'>--</td>"
-                                + "<td class='nbaColumn'>--</td>"
-                                + "</tr>"
-                                + "</tbody>"
-                                + "</table>"
-                                + "</div>"
-                                + "</div>";
-                        let $main2 = $(main);
-                        // add jQuery object
-                        $grid.append($main2).masonry('appended', $main2);
-                        //$("#main").append(main);
-                        $("." + i + " table tbody th:first").attr("rowspan", rowspan);
-                    }
+                    });
 
+                    main += "</tbody>"
+                            + "</table>"
+                            + "</div>"
+                            + "</div>";
+                    let $main = $(main);
+                    // add jQuery object
+                    $grid.append($main).masonry('appended', $main);
+                    //$("#main").append(main);
+                    $("." + index1 + " table tbody th:first").attr("rowspan", rowspan);
 
-                }
-
+                });
                 //changine size based on number of tables
                 if ($(".site").length <= 2) {
                     $(".site").removeClass("col-md-6");
@@ -419,7 +381,7 @@ let updateTables = function (selectedZones) {
 
                 $grid.masonry('reloadItems');
                 $grid.masonry();
-                
+
                 reorderTables();
 
             }
@@ -463,14 +425,14 @@ let updateTheme = function () {
     }
 };
 let updateZoneDropdown = function () {
-    $.getJSON("./api/getzones", function (data) {
-        if (data.result) {
+    $.getJSON("/QData/api/zones", function (data) {
+        if (data) {
             $(".azone").remove();
             let html = "";
-            for (let i = 0; i < data.result.length; i++) {
+            data.forEach((zone) => {
                 html += "<span class='dropdown-item font-weight-bold zone azone'>";
-                html += "<input type='checkbox'  class='mr-1 form-check-input check' value='" + data.result[i].id + "' data-name=" + data.result[i].name + "><span class='textSelect' data-id='" + data.result[i].id + "'>" + data.result[i].name + "</span></span>";
-            }
+                html += "<input type='checkbox'  class='mr-1 form-check-input check' value='" + zone.id + "' data-name='" + zone.name + "''><span class='textSelect' data-id='" + zone.id + "'>" + zone.name + "</span></span>";
+            });
             $("#zones").append(html);
             console.log("(" + moment().format('HH:mm:ss dddd DD/MM/YYYY') + ") - ZoneDropdown Updated");
         }
@@ -526,6 +488,7 @@ let getCheckedZonesFromLocalStorage = function () {
     return   JSON.parse(localStorage.getItem("selectedZones"));
 };
 let updateSelectedZonesDisplay = function (selectedZones) {
+    console.log(selectedZones);
     if (selectedZones.selectedZonesNames.length > 0) {
         $("#selectedZonesDisplay").html("");
         selectedZones.selectedZonesNames.forEach(function (entry) {
