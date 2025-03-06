@@ -30,7 +30,66 @@ function toggleFullScreen(elem) {
         }
     }
 }
-
+moment.locale('fr', {
+    months: 'Janvier_Février_Mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),
+    monthsShort: 'Janv._Févr._Mars_Avr._Mai_Juin_Juil._Août_Sept._Oct._Nov._Déc.'.split('_'),
+    monthsParseExact: true,
+    weekdays: 'Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi'.split('_'),
+    weekdaysShort: 'Dim._Lun._Mar._Mer._Jeu._Ven._Sam.'.split('_'),
+    weekdaysMin: 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
+    weekdaysParseExact: true,
+    longDateFormat: {
+        LT: 'HH:mm',
+        LTS: 'HH:mm:ss',
+        L: 'DD/MM/YYYY',
+        LL: 'D MMMM YYYY',
+        LLL: 'D MMMM YYYY HH:mm',
+        LLLL: 'dddd D MMMM YYYY HH:mm'
+    },
+    calendar: {
+        sameDay: '[Aujourd’hui à] LT',
+        nextDay: '[Demain à] LT',
+        nextWeek: 'dddd [à] LT',
+        lastDay: '[Hier à] LT',
+        lastWeek: 'dddd [dernier à] LT',
+        sameElse: 'L'
+    },
+    relativeTime: {
+        future: 'dans %s',
+        past: 'il y a %s',
+        s: 'quelques secondes',
+        m: 'une minute',
+        mm: '%d minutes',
+        h: 'une heure',
+        hh: '%d heures',
+        d: 'un jour',
+        dd: '%d jours',
+        M: 'un mois',
+        MM: '%d mois',
+        y: 'un an',
+        yy: '%d ans'
+    },
+    dayOfMonthOrdinalParse: /\d{1,2}(er|e)/,
+    ordinal: function (number) {
+        return number + (number === 1 ? 'er' : 'e');
+    },
+    meridiemParse: /PD|MD/,
+    isPM: function (input) {
+        return input.charAt(0) === 'M';
+    },
+    // In case the meridiem units are not separated around 12, then implement
+    // this function (look at locale/id.js for an example).
+    // meridiemHour : function (hour, meridiem) {
+    //     return /* 0-23 hour, given meridiem token and hour 1-12 */ ;
+    // },
+    meridiem: function (hours, minutes, isLower) {
+        return hours < 12 ? 'PD' : 'MD';
+    },
+    week: {
+        dow: 1, // Monday is the first day of the week.
+        doy: 4  // Used to determine first week of the year.
+    }
+});
 
 // GETTERS
 function getLocation() {
@@ -62,13 +121,6 @@ function getRollingText() {
     }
     return config.text;
 }
-function getTitleSize() {
-    config.titleSize = localStorage.getItem('titleSize');
-    if (config.titleSize == undefined) {
-        config.titleSize = "36";
-    }
-    return config.titleSize;
-}
 function getTableRefreshTime() {
     config.tableRefreshTime = localStorage.getItem('tableRefreshTime');
     if (config.tableRefreshTime == undefined) {
@@ -81,33 +133,12 @@ function isOnlineTest(agenceId) {
         return data.status;
     });
 }
-let getOnlineIcon = function (isOnline) {
+function getOnlineIcon(isOnline) {
     if (isOnline) {
         return "<img src='./img/icon/online.png' class='pr-1' />";
     } else {
         return "<img src='./img/icon/offline.png' class='pr-1' />";
     }
-};
-function getElementSize() {
-    config.size = localStorage.getItem('size');
-    if (config.size == undefined) {
-        config.size = "20";
-    }
-    return config.size;
-}
-function getMarginStatus() {
-    config.margin = localStorage.getItem('margin');
-    if (config.margin == undefined) {
-        config.margin = "false";
-    }
-    return config.margin;
-}
-function getHideEmptyTablesStatus() {
-    config.hideEmptyTables = localStorage.getItem('hideEmptyTables');
-    if (config.hideEmptyTables == undefined) {
-        config.hideEmptyTables = "false";
-    }
-    return (config.hideEmptyTables.toLowerCase() === 'true');
 }
 function getTheme() {
     config.mode = localStorage.getItem('mode');
@@ -116,6 +147,15 @@ function getTheme() {
     }
     return config.mode;
 }
+function getFormatedTimeFromSeconds(seconds) {
+    let formatedTime = "00:00:00";
+    if (seconds && seconds > 0) {
+        formatedTime = moment.utc(seconds * 1000).format('HH:mm:ss');
+    }
+    return formatedTime;
+}
+
+//names
 function getSiteName() {
     names.siteName = localStorage.getItem('siteName');
     if (names.siteName == undefined) {
@@ -174,6 +214,27 @@ function getMoytName() {
 }
 
 //sizes
+function getTitleSize() {
+    config.titleSize = localStorage.getItem('titleSize');
+    if (config.titleSize == undefined) {
+        config.titleSize = "36";
+    }
+    return config.titleSize;
+}
+function getElementSize() {
+    config.size = localStorage.getItem('size');
+    if (config.size == undefined) {
+        config.size = "20";
+    }
+    return config.size;
+}
+function getMarginStatus() {
+    config.margin = localStorage.getItem('margin');
+    if (config.margin == undefined) {
+        config.margin = "false";
+    }
+    return config.margin;
+}
 function getSiteSize() {
     names.siteSize = localStorage.getItem('siteSize');
     if (names.siteSize == undefined) {
@@ -237,6 +298,15 @@ function getTableSize() {
     }
     return names.tableSize;
 }
+
+//status
+function getHideEmptyTablesStatus() {
+    config.hideEmptyTables = localStorage.getItem('hideEmptyTables');
+    if (config.hideEmptyTables == undefined) {
+        config.hideEmptyTables = "false";
+    }
+    return (config.hideEmptyTables.toLowerCase() === 'true');
+}
 function getTableBorderStatus() {
     names.tableBorderStatus = localStorage.getItem('tableBorderStatus');
     if (names.tableBorderStatus == undefined) {
@@ -252,6 +322,73 @@ function getTableResposiveStatus() {
     return names.tableResposiveStatus;
 }
 
+//
+function addTable(data) {
+    data.forEach((agence, index1) => {
+        if (index1 === (data.length - 1)) {
+            return;
+        }
+        let services = agence.services;
+        let agenceName = agence.agence_name;
+        let agenceId = agence.id_agence;
+        let isOnline = isOnlineTest(agenceId);
+        let rowspan = services.length;
+        let main = "<div class=' w-50 p-1 site m-0 " + index1 + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.length + "' data-id_zone=''>"
+                + "<div class=' p-0 m-0'>"
+                + "<table class='table text-white  " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element m-0'>"
+                + "<thead>"
+                + "<tr class='text-center'>"
+                + "<th scope='col' class='siteColumn text-wrap'>" + getSiteName() + "</th>"
+                + "<th scope='col' class='serviceColumn'>" + getServiceName() + "</th>"
+                + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>" //0
+                + "<th scope='col' class='nbattColumn'>" + getNbattName() + "</th>" //14
+                + "<th scope='col' class='moyattColumn'>" + getMoyattName() + "</th>" //8
+                + "<th scope='col' class='nbtColumn'>" + getNbtName() + "</th>" //1
+                + "<th scope='col' class='moytColumn'>" + getMoytName() + "</th>" //11
+                + "<th scope='col' class='nbaColumn'>" + getNbaName() + "</th>" //2
+                + "</tr>"
+                + "</thead>"
+                + "<tbody>"
+                ;
+        services.forEach((service, index2) => {
+            if (index2 === 0) {
+                let row = "<tr class='text-center'>"
+                        + "<th scope='row' class='text-center align-middle siteColumn text-wrap'>" + getOnlineIcon(isOnline) + agenceName + "</th>"
+                        + "<td class='serviceColumn'>" + service.serviceName + "</td>"
+                        + "<td class='nbeColumn'>" + service.nbT + "</td>"
+                        + "<td class='nbattColumn'>" + service.nbSa + "</td>"
+                        + "<td class='moyattColumn'>" + getFormatedTimeFromSeconds(service.avgSecA) + "</td>"
+                        + "<td class='nbtColumn'>" + service.nbTt + "</td>"
+                        + "<td class='moytColumn'>" + getFormatedTimeFromSeconds(service.avgSecT) + "</td>"
+                        + "<td class='nbaColumn'>" + service.nbA + "</td>"
+                        + "</tr>";
+                main += row;
+            } else if (index2 < rowspan - 1) {
+                let row = "<tr class='text-center'>"
+                        + "<td class='serviceColumn'>" + service.serviceName + "</td>"
+                        + "<td class='nbeColumn'>" + service.nbT + "</td>"
+                        + "<td class='nbattColumn'>" + service.nbSa + "</td>"
+                        + "<td class='moyattColumn'>" + getFormatedTimeFromSeconds(service.avgSecA) + "</td>"
+                        + "<td class='nbtColumn'>" + service.nbTt + "</td>"
+                        + "<td class='moytColumn'>" + getFormatedTimeFromSeconds(service.avgSecT) + "</td>"
+                        + "<td class='nbaColumn'>" + service.nbA + "</td>"
+                        + "</tr>";
+                main += row;
+            }
+        });
+
+        main += "</tbody>"
+                + "</table>"
+                + "</div>"
+                + "</div>";
+        let $main = $(main);
+        // add jQuery object
+        $grid.append($main).masonry('appended', $main);
+        //$("#main").append(main);
+        $("." + index1 + " table tbody th:first").attr("rowspan", rowspan);
+
+    });
+}
 
 // UPDATERS
 let updateWeather = function () {
@@ -272,70 +409,14 @@ let updateTables = function (selectedZones) {
         obj2 = "30";
         obj3 = "0";
     } else {
+        let url = "/" + APP + "/api/gbl";
+        selectedZones = {};
+        selectedZones.selectedZonesIds = ["ddddd"];
         if (selectedZones) {
-            $.getJSON("/" + APP + "/api/gbl", {selectedZonesIds: selectedZones.selectedZonesIds}, function (data) {
+            $.get("./response.json", function (data) {
+                console.log(data);
                 $("#main").html("");
-                data.forEach((agence,index1) => {
-                    let services = agence.services;
-                    let agenceName = agence.agence_name;
-                    let agenceId = agence.id_agence;
-                    let isOnline = isOnlineTest(agenceId);
-                    let rowspan = services.length;
-                    let main = "<div class=' w-50 p-1 site m-0 " + index1 + " table-responsive-sm full'  data-rows='" + rowspan + "' data-sites='" + data.length + "' data-id_zone=''>"
-                            + "<div class=' p-0 m-0'>"
-                            + "<table class='table text-white  " + getTableSize() + " " + getTableBorderStatus() + " " + getTableResposiveStatus() + " table-element m-0'>"
-                            + "<thead>"
-                            + "<tr class='text-center'>"
-                            + "<th scope='col' class='siteColumn text-wrap'>" + getSiteName() + "</th>"
-                            + "<th scope='col' class='serviceColumn'>" + getServiceName() + "</th>"
-                            + "<th scope='col' class='nbeColumn'>" + getNbeName() + "</th>" //0
-                            + "<th scope='col' class='nbattColumn'>" + getNbattName() + "</th>" //14
-                            + "<th scope='col' class='moyattColumn'>" + getMoyattName() + "</th>" //8
-                            + "<th scope='col' class='nbtColumn'>" + getNbtName() + "</th>" //1
-                            + "<th scope='col' class='moytColumn'>" + getMoytName() + "</th>" //11
-                            + "<th scope='col' class='nbaColumn'>" + getNbaName() + "</th>" //2
-                            + "</tr>"
-                            + "</thead>"
-                            + "<tbody>"
-                            ;
-                    services.forEach((service,index2) => {
-                        if (index2 === 0) {
-                            let row = "<tr class='text-center'>"
-                                    + "<th scope='row' class='text-center align-middle siteColumn text-wrap'>" + getOnlineIcon(isOnline) + agenceName + "</th>"
-                                    + "<td class='serviceColumn'>" + service.serviceName + "</td>"
-                                    + "<td class='nbeColumn'>" + service.nbT + "</td>"
-                                    + "<td class='nbattColumn'>" + service.nbSa + "</td>"
-                                    + "<td class='moyattColumn'>" + service.avgSecA + "</td>"
-                                    + "<td class='nbtColumn'>" + service.nbTt + "</td>"
-                                    + "<td class='moytColumn'>" + service.avgSecT + "</td>"
-                                    + "<td class='nbaColumn'>" + service.nbA + "</td>"
-                                    + "</tr>";
-                            main += row;
-                        } else {
-                            let row = "<tr class='text-center'>"
-                                    + "<td class='serviceColumn'>" + service.serviceName + "</td>"
-                                    + "<td class='nbeColumn'>" + service.nbT + "</td>"
-                                    + "<td class='nbattColumn'>" + service.nbSa + "</td>"
-                                    + "<td class='moyattColumn'>" + service.avgSecA + "</td>"
-                                    + "<td class='nbtColumn'>" + service.nbTt + "</td>"
-                                    + "<td class='moytColumn'>" + service.avgSecT + "</td>"
-                                    + "<td class='nbaColumn'>" + service.nbA + "</td>"
-                                    + "</tr>";
-                            main += row;
-                        }
-                    });
-
-                    main += "</tbody>"
-                            + "</table>"
-                            + "</div>"
-                            + "</div>";
-                    let $main = $(main);
-                    // add jQuery object
-                    $grid.append($main).masonry('appended', $main);
-                    //$("#main").append(main);
-                    $("." + index1 + " table tbody th:first").attr("rowspan", rowspan);
-
-                });
+                addTable(data);
                 //changine size based on number of tables
                 if ($(".site").length <= 2) {
                     $(".site").removeClass("col-md-6");
@@ -345,7 +426,6 @@ let updateTables = function (selectedZones) {
                 if ($(".full").length < 2) {
                     //$(".full").removeClass("col-md-6");
                 }
-
                 //margin
                 if ((obj3 === 'true')) {
                     $("tr").removeClass("p-0").removeClass("m-0");
@@ -369,23 +449,17 @@ let updateTables = function (selectedZones) {
                 $(".nbaColumn").css("width", getNbaSize() + "%");
                 $(".moyattColumn").css("width", getMoyattSize() + "%");
                 $(".moytColumn").css("width", getMoytSize() + "%");
-
                 //hide empty tables
                 if (getHideEmptyTablesStatus()) {
                     $(".empty").hide();
                 }
-
                 $("#main").css("font-size", obj2 + "px");
                 $(".site table td").addClass("p-0");
                 updateTheme();
-
                 $grid.masonry('reloadItems');
                 $grid.masonry();
-
                 reorderTables();
-
-            }
-            );
+            });
         } else {
             console.log("ERROR: NO ZONE SELECTED.");
         }
