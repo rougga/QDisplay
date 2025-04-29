@@ -129,8 +129,14 @@ function getTableRefreshTime() {
     return config.tableRefreshTime;
 }
 function isOnlineTest(agenceId) {
+    console.log("agence sid = ", agenceId);
     $.get("/" + APP + "/GetAgenceStatus", {id: agenceId}, function (data) {
-        return data.status;
+        if (data) {
+            return data.status;
+        } else {
+            console.log("isOnlineTest: error testing agence status");
+            return "false";
+        }
     });
 }
 function getOnlineIcon(isOnline) {
@@ -410,10 +416,10 @@ let updateTables = function (selectedZones) {
         obj3 = "0";
     } else {
         let url = "/" + APP + "/api/gbl";
-        selectedZones = {};
-        selectedZones.selectedZonesIds = ["ddddd"];
+//        selectedZones = {};
+//        selectedZones.selectedZonesIds = ["ddddd"];
         if (selectedZones) {
-            $.get("./response.json", function (data) {
+            $.get(url, selectedZones, function (data) {
                 console.log(data);
                 $("#main").html("");
                 addTable(data);
