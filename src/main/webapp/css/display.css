@@ -1,0 +1,55 @@
+@font-face{
+    font-family:'digital-clock-font';
+    src: url('../font/digital-7.ttf');
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.font-digital{
+    font-family:'digital-clock-font' !important;
+}
+*{
+    padding: 0;
+    margin: 0;
+}
+body {
+    font-family: "Open Sans", sans-serif;
+    height: 100vh;
+}
+div.marquee {
+    white-space: nowrap;
+    overflow:hidden;
+}
+div.marquee > div.marquee-text {
+    white-space:nowrap;
+    display:inline;
+    width:auto;
+}
+#setting{
+    cursor: pointer;
+    opacity: 0;
+}
+#setting:hover,#zoneDropDown:hover{
+    opacity: 1;
+}
+.bg-black{
+    background-color: black;
+}
+.bg-normal{
+    background-color: #F9F871;
+}
+.weatherIcon{
+    width: 1.5em;
+    height: 1.5em;
+}
+.table{
+    margin-bottom: 0;
+}
+.check,#selectAll{
+    width: 15px;
+    height: 15px;
+}
+.fadeIn{
+    animation: fadeIn 0.5s;
+}
